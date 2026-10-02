@@ -1,7 +1,7 @@
 # Ideia: Modelo de tarefa rico e altamente personalizável
 
 **ID:** IDEA-002
-**Status:** Ready for review
+**Status:** Accepted
 **Criado em:** 2026-10-02
 **Autor:** Arthur Rubi e Codex
 
@@ -149,9 +149,10 @@ A ideia pode ser aceita se o mantenedor concordar com:
 
 - 2026-10-02: ideia criada a partir da necessidade de maior personalização que aplicativos de TO-DO tradicionais.
 - 2026-10-02: proposta organizada como modelo híbrido e incremental; estado alterado para `Ready for review`.
+- 2026-10-02: ideia aprovada pelo mantenedor sem alterações; estado alterado para `Accepted`.
 
 ## Aprovação
 
-**Decisão:** Pending
-**Aprovado por:** pendente
-**Data:** pendente
+**Decisão:** Accepted
+**Aprovado por:** Arthur Rubi
+**Data:** 2026-10-02
