@@ -13,4 +13,4 @@ NNN-slug/
 └── validation.md
 ```
 
-O próximo identificador disponível é `001`. Não crie uma pasta apenas para reservar número.
+O próximo identificador disponível é `002`. Não crie uma pasta apenas para reservar número.
