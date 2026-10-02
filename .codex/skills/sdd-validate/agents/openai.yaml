@@ -1,0 +1,3 @@
+interface:
+  display_name: "SDD: Validar"
+  short_description: "Valide a entrega e registre evidências"

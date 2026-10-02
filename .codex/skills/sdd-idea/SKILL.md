@@ -1,0 +1,18 @@
+---
+name: sdd-idea
+description: Estruture uma solicitação ainda informal como ideia de produto SDD antes de especificar solução ou funcionalidade.
+---
+
+# Ideia SDD
+
+Use quando o problema, público, valor ou limite ainda estiverem em descoberta. Não use para uma funcionalidade que já possui ideia aceita e precisa de spec.
+
+1. Leia `docs/constitution.md`, `docs/sdd-workflow.md`, `docs/project-brief.md` e `docs/ideas/README.md` por completo.
+2. Verifique ideias e specs existentes para evitar duplicação.
+3. Escolha o menor número de ideia ainda não usado e um slug curto.
+4. Crie `docs/ideas/NNN-slug.md` a partir de `docs/templates/idea-template.md`.
+5. Separe claramente fatos, premissas, dúvidas e itens fora de escopo. Não escolha arquitetura nesta etapa.
+6. Use `NEEDS CLARIFICATION` apenas quando a resposta mudar materialmente valor ou limites; faça suposições reversíveis quando seguro e registre-as.
+7. Termine em `Ready for review` quando o documento estiver completo. Somente confirmação humana explícita permite mudar para `Accepted`.
+
+Na resposta final, resuma valor, limites, dúvidas e o próximo gate. Não inicie a especificação no mesmo pedido, salvo solicitação explícita do usuário.
