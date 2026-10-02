@@ -4,7 +4,8 @@
 **Plano:** [link]
 **Tarefas:** [link]
 **Data:** [AAAA-MM-DD]
-**Status:** Pending
+**Status:** Draft
+**Veredito técnico:** Pending
 
 ## Resumo do incremento
 
@@ -45,9 +46,15 @@
 
 - [Nenhum ou descrição com impacto e próximo passo]
 
-## Conclusão
+## Conclusão técnica
 
 [Passed, Failed ou Passed with exceptions, com justificativa baseada nas evidências acima.]
 
 **Validado por:** [NOME]
 **Data:** [AAAA-MM-DD]
+
+## Aceite humano
+
+**Decisão:** Pending
+**Aceito por:** pendente
+**Data:** pendente

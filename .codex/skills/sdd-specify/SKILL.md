@@ -13,6 +13,6 @@ description: Crie ou refine uma especificação funcional SDD com histórias, re
 6. Priorize histórias verticais e independentemente testáveis. Cubra caminho feliz, erros relevantes, limites e qualidade mensurável.
 7. Garanta IDs únicos e uma matriz inicial de cobertura. Todo `FR-*` deve ser verificável; todo `SC-*` deve ser independente de tecnologia.
 8. Marque somente dúvidas materiais como `NEEDS CLARIFICATION`. Quando não houver lacunas bloqueantes, mude o estado para `Ready for review`.
-9. Nunca marque a spec como `Approved` sem confirmação humana explícita; registre aprovador e data quando houver.
+9. Ao chegar a `Ready for review`, apresente a spec, peça aprovação explícita e pare. Nunca marque como `Approved` nem inicie o plano antes dessa nova confirmação; registre aprovador e data quando houver.
 
-Não produza plano técnico ou código nesta etapa. Na resposta final, destaque decisões de produto, dúvidas e o próximo gate.
+Não produza plano técnico ou código nesta etapa. Na resposta final, destaque decisões de produto e dúvidas, e peça aprovação ou ajustes.

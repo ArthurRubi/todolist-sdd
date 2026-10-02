@@ -13,6 +13,6 @@ Use quando o problema, público, valor ou limite ainda estiverem em descoberta. 
 4. Crie `docs/ideas/NNN-slug.md` a partir de `docs/templates/idea-template.md`.
 5. Separe claramente fatos, premissas, dúvidas e itens fora de escopo. Não escolha arquitetura nesta etapa.
 6. Use `NEEDS CLARIFICATION` apenas quando a resposta mudar materialmente valor ou limites; faça suposições reversíveis quando seguro e registre-as.
-7. Termine em `Ready for review` quando o documento estiver completo. Somente confirmação humana explícita permite mudar para `Accepted`.
+7. Termine em `Ready for review` quando o documento estiver completo. Apresente o resultado, peça aprovação explícita e pare. Somente essa confirmação permite mudar para `Accepted` e iniciar a spec.
 
-Na resposta final, resuma valor, limites, dúvidas e o próximo gate. Não inicie a especificação no mesmo pedido, salvo solicitação explícita do usuário.
+Na resposta final, resuma valor, limites e decisões propostas, e peça que o usuário aprove, rejeite ou solicite ajustes. Não inicie a especificação antes de uma nova confirmação, mesmo que o pedido original mencione etapas posteriores.

@@ -40,3 +40,9 @@
 ## Registro de decisão
 
 - [AAAA-MM-DD] Ideia criada como Draft.
+
+## Aprovação
+
+**Decisão:** Pending
+**Aprovado por:** pendente
+**Data:** pendente

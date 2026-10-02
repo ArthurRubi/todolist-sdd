@@ -2,7 +2,8 @@
 
 **Spec:** [link]
 **Plano:** [link]
-**Status:** Draft
+**Planejamento:** Draft
+**Implementação:** Not started
 
 ## Formato
 
@@ -55,3 +56,15 @@
 ## Registro de execução
 
 Ao marcar uma tarefa, acrescente evidência curta quando ela não for óbvia: commit, teste, comando ou decisão. Não marque tarefa incompleta.
+
+## Aprovação do planejamento
+
+**Decisão:** Pending
+**Aprovado por:** pendente
+**Data:** pendente
+
+## Aceite da implementação
+
+**Decisão:** Pending
+**Aceito por:** pendente
+**Data:** pendente

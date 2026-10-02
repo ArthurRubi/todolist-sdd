@@ -13,6 +13,7 @@ description: Converta uma spec e um plano aprovados em tarefas pequenas, ordenad
 6. Crie tarefas de teste antes das tarefas de implementação correspondentes. Cubra cada cenário de aceitação e risco definido no plano.
 7. Marque `[P]` somente quando as tarefas puderem ser executadas simultaneamente sem dependência ou conflito de arquivo.
 8. Inclua checkpoints independentes por história e tarefas finais de documentação e validação.
-9. Faça uma revisão de cobertura. Quando não houver requisito órfão, caminho fictício ou dependência ambígua, altere o estado para `Ready`.
+9. Faça uma revisão de cobertura. Quando não houver requisito órfão, caminho fictício ou dependência ambígua, altere o planejamento para `Ready for review`.
+10. Apresente as tarefas, peça aprovação explícita e pare. Somente essa nova confirmação permite marcar o planejamento como `Approved` e iniciar a implementação.
 
-Não implemente tarefas nesta etapa. Na resposta final, informe quantidade por fase, caminho crítico, paralelismo real e o próximo gate.
+Não implemente tarefas nesta etapa. Na resposta final, informe quantidade por fase, caminho crítico e paralelismo real, e peça aprovação ou ajustes.

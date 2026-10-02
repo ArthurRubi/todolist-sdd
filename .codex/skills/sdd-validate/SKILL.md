@@ -12,6 +12,7 @@ description: Valide uma implementação SDD contra requisitos, cenários, tarefa
 5. Percorra cada cenário e requisito no escopo. Preencha a matriz final com tarefa, teste ou evidência e resultado; nenhum requisito pode ficar implícito.
 6. Faça validação manual ou exploratória quando automação não provar experiência, acessibilidade ou integração suficiente.
 7. Compare a entrega com os gates da constituição e verifique documentação e contratos.
-8. Defina `Passed` somente se todos os itens obrigatórios passarem. Use `Failed` para lacuna bloqueante e `Passed with exceptions` apenas com risco, justificativa e próximo passo explícitos.
+8. Defina o veredito `Passed` somente se todos os itens obrigatórios passarem. Use `Failed` para lacuna bloqueante e `Passed with exceptions` apenas com risco, justificativa e próximo passo explícitos.
+9. Marque o relatório como `Ready for review`, apresente as evidências, peça aceite humano explícito e pare. Somente essa nova confirmação permite marcar o relatório como `Accepted` e a funcionalidade como `Done`.
 
-Na resposta final, comece pelo veredito e resuma evidências, falhas, riscos e ações necessárias. Não esconda comando não executado como aprovação.
+Na resposta final, comece pelo veredito, resuma evidências, falhas e riscos, e peça aceite ou ajustes. Não esconda comando não executado como aprovação.
