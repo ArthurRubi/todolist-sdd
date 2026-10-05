@@ -1,0 +1,360 @@
+openapi: 3.1.0
+info:
+  title: TodoList Tasks API
+  version: 1.0.0
+  description: Contrato HTTP pretendido para a SPEC-001 — Tarefa essencial.
+servers:
+  - url: /api
+tags:
+  - name: Tasks
+paths:
+  /tasks:
+    get:
+      tags: [Tasks]
+      operationId: listTasks
+      summary: Lista tarefas ativas ou concluídas
+      parameters:
+        - name: view
+          in: query
+          required: false
+          description: A visualização ativa é usada quando o parâmetro é omitido.
+          schema:
+            $ref: '#/components/schemas/TaskView'
+      responses:
+        '200':
+          description: Tarefas da visualização solicitada.
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 1000
+                items:
+                  $ref: '#/components/schemas/Task'
+        '400':
+          $ref: '#/components/responses/ValidationProblem'
+        '500':
+          $ref: '#/components/responses/Problem'
+    post:
+      tags: [Tasks]
+      operationId: createTask
+      summary: Cria uma tarefa de forma idempotente
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTaskRequest'
+      responses:
+        '201':
+          description: Tarefa criada nesta requisição.
+          headers:
+            Location:
+              description: Caminho do recurso criado.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '200':
+          description: Repetição idempotente; retorna a tarefa criada anteriormente com a mesma chave e conteúdo.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          $ref: '#/components/responses/ValidationProblem'
+        '409':
+          description: A chave de idempotência já foi usada com conteúdo diferente.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          $ref: '#/components/responses/Problem'
+  /tasks/{taskId}:
+    parameters:
+      - $ref: '#/components/parameters/TaskId'
+    get:
+      tags: [Tasks]
+      operationId: getTask
+      summary: Obtém os detalhes essenciais de uma tarefa
+      responses:
+        '200':
+          description: Tarefa encontrada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '404':
+          $ref: '#/components/responses/NotFoundProblem'
+        '500':
+          $ref: '#/components/responses/Problem'
+    put:
+      tags: [Tasks]
+      operationId: updateTask
+      summary: Substitui atomicamente os campos editáveis
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTaskRequest'
+      responses:
+        '200':
+          description: Tarefa atualizada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          $ref: '#/components/responses/ValidationProblem'
+        '404':
+          $ref: '#/components/responses/NotFoundProblem'
+        '500':
+          $ref: '#/components/responses/Problem'
+  /tasks/{taskId}/status:
+    parameters:
+      - $ref: '#/components/parameters/TaskId'
+    put:
+      tags: [Tasks]
+      operationId: changeActiveTaskStatus
+      summary: Altera uma tarefa entre estados ativos
+      description: Uma tarefa concluída deve ser reaberta antes de receber outro estado ativo.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeActiveStatusRequest'
+      responses:
+        '200':
+          description: Estado alterado; se o estado já era o solicitado, nenhum evento é acrescentado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          $ref: '#/components/responses/ValidationProblem'
+        '404':
+          $ref: '#/components/responses/NotFoundProblem'
+        '409':
+          description: A tarefa está concluída e precisa ser reaberta.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          $ref: '#/components/responses/Problem'
+  /tasks/{taskId}/complete:
+    parameters:
+      - $ref: '#/components/parameters/TaskId'
+    post:
+      tags: [Tasks]
+      operationId: completeTask
+      summary: Conclui uma tarefa de forma idempotente
+      responses:
+        '200':
+          description: Tarefa concluída; repetições preservam o primeiro evento e instante da conclusão atual.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '404':
+          $ref: '#/components/responses/NotFoundProblem'
+        '500':
+          $ref: '#/components/responses/Problem'
+  /tasks/{taskId}/reopen:
+    parameters:
+      - $ref: '#/components/parameters/TaskId'
+    post:
+      tags: [Tasks]
+      operationId: reopenTask
+      summary: Reabre uma tarefa no estado ativo anterior
+      responses:
+        '200':
+          description: Tarefa reaberta e conclusão atual removida; eventos anteriores permanecem preservados.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '404':
+          $ref: '#/components/responses/NotFoundProblem'
+        '409':
+          description: A tarefa não está concluída ou não possui uma transição de conclusão válida.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          $ref: '#/components/responses/Problem'
+components:
+  parameters:
+    TaskId:
+      name: taskId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: true
+      description: UUID estável para uma tentativa lógica de criação. Deve ser reutilizado somente em retries da mesma criação.
+      schema:
+        type: string
+        format: uuid
+  responses:
+    ValidationProblem:
+      description: A requisição é inválida; nenhuma alteração foi persistida.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ValidationProblemDetails'
+    NotFoundProblem:
+      description: A tarefa não existe.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    Problem:
+      description: Falha inesperada; o traceId permite correlação sem expor conteúdo da tarefa.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+  schemas:
+    TaskView:
+      type: string
+      enum: [active, completed]
+      default: active
+    TaskStatus:
+      type: string
+      enum: [not_started, in_progress, blocked, completed]
+    ActiveTaskStatus:
+      type: string
+      enum: [not_started, in_progress, blocked]
+    TaskPriority:
+      type: string
+      enum: [none, low, medium, high, urgent]
+      default: none
+    Task:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - title
+        - description
+        - status
+        - priority
+        - dueDate
+        - createdAt
+        - updatedAt
+        - completedAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+        description:
+          type: [string, 'null']
+          maxLength: 10000
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+        priority:
+          $ref: '#/components/schemas/TaskPriority'
+        dueDate:
+          type: [string, 'null']
+          format: date
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: [string, 'null']
+          format: date-time
+    CreateTaskRequest:
+      type: object
+      additionalProperties: false
+      required: [title]
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+        description:
+          type: [string, 'null']
+          maxLength: 10000
+          default: null
+        priority:
+          $ref: '#/components/schemas/TaskPriority'
+        dueDate:
+          type: [string, 'null']
+          format: date
+          default: null
+    UpdateTaskRequest:
+      type: object
+      additionalProperties: false
+      required: [title, description, priority, dueDate]
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+        description:
+          type: [string, 'null']
+          maxLength: 10000
+        priority:
+          $ref: '#/components/schemas/TaskPriority'
+        dueDate:
+          type: [string, 'null']
+          format: date
+    ChangeActiveStatusRequest:
+      type: object
+      additionalProperties: false
+      required: [status]
+      properties:
+        status:
+          $ref: '#/components/schemas/ActiveTaskStatus'
+    ProblemDetails:
+      type: object
+      additionalProperties: true
+      required: [type, title, status, traceId]
+      properties:
+        type:
+          type: string
+          format: uri-reference
+        title:
+          type: string
+        status:
+          type: integer
+          minimum: 400
+          maximum: 599
+        detail:
+          type: string
+        instance:
+          type: string
+          format: uri-reference
+        traceId:
+          type: string
+    ValidationProblemDetails:
+      allOf:
+        - $ref: '#/components/schemas/ProblemDetails'
+        - type: object
+          required: [errors]
+          properties:
+            errors:
+              type: object
+              additionalProperties:
+                type: array
+                minItems: 1
+                items:
+                  type: string
