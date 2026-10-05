@@ -7,7 +7,7 @@
 **Implementação:** In progress
 **Incremento T001–T024:** Accepted
 **Incremento T025–T032:** Accepted
-**Validação T025–T032:** Ready for review
+**Validação T025–T032:** Accepted
 
 ## Formato
 
@@ -256,3 +256,4 @@ Não marque tarefa incompleta, não substitua falha por descrição otimista e n
 - 2026-10-05: T025–T032 concluídas com AC-06 a AC-09 demonstrados; incremento movido para `Ready for review`, mantendo a implementação total da SPEC-001 em andamento.
 - 2026-10-05: incremento T025–T032 aceito pelo mantenedor; validação parcial da US-02 autorizada, mantendo a implementação total da SPEC-001 em andamento.
 - 2026-10-05: validação parcial de T025–T032 concluída com veredito `Passed with exceptions`; AC-06 a AC-09 passaram, e gates transversais posteriores permaneceram explicitamente pendentes.
+- 2026-10-05: validação parcial de T025–T032 aceita pelo mantenedor com as exceções registradas; implementação de T033–T041 autorizada.

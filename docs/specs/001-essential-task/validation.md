@@ -5,7 +5,7 @@
 **Tarefas:** [Tarefas da SPEC-001](./tasks.md)
 **Contrato:** [Tasks API](./contracts/tasks-api.openapi.yaml)
 **Data:** 2026-10-05
-**Status:** Ready for review
+**Status:** Accepted
 **Veredito técnico:** Passed with exceptions
 
 ## Resumo do incremento
@@ -86,6 +86,6 @@ Este aceite, se concedido, encerra somente a validação parcial de T025–T032.
 
 ## Aceite humano da validação T025–T032
 
-**Decisão:** Pending
-**Aceito por:** pendente
-**Data:** pendente
+**Decisão:** Accepted
+**Aceito por:** Arthur Rubi
+**Data:** 2026-10-05
