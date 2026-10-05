@@ -3,8 +3,8 @@
 **Spec:** [SPEC-001](./spec.md)
 **Plano:** [Plano da SPEC-001](./plan.md)
 **Contrato:** [Tasks API](./contracts/tasks-api.openapi.yaml)
-**Planejamento:** Ready for review
-**Implementação:** Not started
+**Planejamento:** Approved
+**Implementação:** In progress
 
 ## Formato
 
@@ -186,9 +186,9 @@ Não marque tarefa incompleta, não substitua falha por descrição otimista e n
 
 ## Aprovação do planejamento
 
-**Decisão:** Pending
-**Aprovado por:** pendente
-**Data:** pendente
+**Decisão:** Approved
+**Aprovado por:** Arthur Rubi
+**Data:** 2026-10-04
 
 ## Aceite da implementação
 
@@ -202,3 +202,4 @@ Não marque tarefa incompleta, não substitua falha por descrição otimista e n
 - 2026-10-04: tarefas organizadas em setup mínimo, fundação bloqueante, três histórias verticais e qualidade transversal.
 - 2026-10-04: testes posicionados antes da implementação correspondente e cobertura revisada sem itens órfãos.
 - 2026-10-04: planejamento movido para `Ready for review`; implementação mantida em `Not started`.
+- 2026-10-04: planejamento aprovado pelo mantenedor; implementação T001–T024 iniciada.
