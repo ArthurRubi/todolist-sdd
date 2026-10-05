@@ -8,7 +8,7 @@
 **Incremento T001–T024:** Accepted
 **Incremento T025–T032:** Accepted
 **Validação T025–T032:** Accepted
-**Incremento T033–T041:** Ready for review
+**Incremento T033–T041:** Accepted
 
 ## Formato
 
@@ -256,9 +256,9 @@ Não marque tarefa incompleta, não substitua falha por descrição otimista e n
 
 ### Aceite do incremento T033–T041
 
-**Decisão:** Pending
-**Aceito por:** pendente
-**Data:** pendente
+**Decisão:** Accepted
+**Aceito por:** Arthur Rubi
+**Data:** 2026-10-05
 
 ## Registro de decisões
 
@@ -274,3 +274,4 @@ Não marque tarefa incompleta, não substitua falha por descrição otimista e n
 - 2026-10-05: validação parcial de T025–T032 concluída com veredito `Passed with exceptions`; AC-06 a AC-09 passaram, e gates transversais posteriores permaneceram explicitamente pendentes.
 - 2026-10-05: validação parcial de T025–T032 aceita pelo mantenedor com as exceções registradas; implementação de T033–T041 autorizada.
 - 2026-10-05: T033–T041 concluídas com AC-10 a AC-14 demonstrados; incremento movido para `Ready for review`, mantendo a implementação total da SPEC-001 em andamento.
+- 2026-10-05: incremento T033–T041 aceito pelo mantenedor; validação parcial da US-03 autorizada, mantendo a implementação total da SPEC-001 em andamento.
