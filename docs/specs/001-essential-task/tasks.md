@@ -5,6 +5,7 @@
 **Contrato:** [Tasks API](./contracts/tasks-api.openapi.yaml)
 **Planejamento:** Approved
 **Implementação:** In progress
+**Incremento T001–T024:** Ready for review
 
 ## Formato
 
@@ -17,11 +18,11 @@
 
 ## Fase 1 — Setup mínimo
 
-- [ ] T001 [P] [SETUP] [ADR-0001] Criar `global.json`, `backend/TodoList.slnx`, `backend/Directory.Packages.props`, `backend/src/TodoList.Api/TodoList.Api.csproj`, `backend/tests/TodoList.Api.UnitTests/TodoList.Api.UnitTests.csproj` e `backend/tests/TodoList.Api.IntegrationTests/TodoList.Api.IntegrationTests.csproj`, fixando .NET 10 e dependências aprovadas; `dotnet build backend/TodoList.slnx` deve concluir.
-- [ ] T002 [P] [SETUP] [ADR-0001] Inicializar React 19.3 + TypeScript + Vite 8 em `frontend/package.json`, `frontend/package-lock.json`, `frontend/index.html`, `frontend/tsconfig*.json`, `frontend/vite.config.ts` e `frontend/src/main.tsx`, sem interface de produto; `npm run build` deve concluir.
-- [ ] T003 [P] [SETUP] [FR-018] Criar `compose.yaml`, `.env.example` e as exclusões necessárias em `.gitignore` para um PostgreSQL 18 local com volume nomeado e credenciais apenas de desenvolvimento; `docker compose config` deve validar a configuração sem iniciar serviços.
-- [ ] T004 [P] [SETUP] [NFR-004] Preparar a infraestrutura xUnit, `WebApplicationFactory` e PostgreSQL Testcontainers em `backend/tests/TodoList.Api.IntegrationTests/Infrastructure/`, incluindo limpeza isolada por teste; depende de T001 e T003; um teste de infraestrutura deve iniciar e encerrar o banco efêmero.
-- [ ] T005 [P] [SETUP] [NFR-002] Configurar Vitest, Testing Library, MSW e Playwright em `frontend/vitest.config.ts`, `frontend/playwright.config.ts`, `frontend/src/test/` e `frontend/e2e/`; depende de T002; testes mínimos dos dois runners devem ser descobertos sem erro de configuração.
+- [x] T001 [P] [SETUP] [ADR-0001] Criar `global.json`, `backend/TodoList.slnx`, `backend/Directory.Packages.props`, `backend/src/TodoList.Api/TodoList.Api.csproj`, `backend/tests/TodoList.Api.UnitTests/TodoList.Api.UnitTests.csproj` e `backend/tests/TodoList.Api.IntegrationTests/TodoList.Api.IntegrationTests.csproj`, fixando .NET 10 e dependências aprovadas; `dotnet build backend/TodoList.slnx` deve concluir.
+- [x] T002 [P] [SETUP] [ADR-0001] Inicializar React 19.3 + TypeScript + Vite 8 em `frontend/package.json`, `frontend/package-lock.json`, `frontend/index.html`, `frontend/tsconfig*.json`, `frontend/vite.config.ts` e `frontend/src/main.tsx`, sem interface de produto; `npm run build` deve concluir.
+- [x] T003 [P] [SETUP] [FR-018] Criar `compose.yaml`, `.env.example` e as exclusões necessárias em `.gitignore` para um PostgreSQL 18 local com volume nomeado e credenciais apenas de desenvolvimento; `docker compose config` deve validar a configuração sem iniciar serviços.
+- [x] T004 [P] [SETUP] [NFR-004] Preparar a infraestrutura xUnit, `WebApplicationFactory` e PostgreSQL Testcontainers em `backend/tests/TodoList.Api.IntegrationTests/Infrastructure/`, incluindo limpeza isolada por teste; depende de T001 e T003; um teste de infraestrutura deve iniciar e encerrar o banco efêmero.
+- [x] T005 [P] [SETUP] [NFR-002] Configurar Vitest, Testing Library, MSW e Playwright em `frontend/vitest.config.ts`, `frontend/playwright.config.ts`, `frontend/src/test/` e `frontend/e2e/`; depende de T002; testes mínimos dos dois runners devem ser descobertos sem erro de configuração.
 
 **Checkpoint:** os dois módulos compilam, os runners descobrem testes e o PostgreSQL local/efêmero possui configuração reproduzível; ainda não existe comportamento de produto.
 
@@ -29,16 +30,16 @@
 
 ### Testes primeiro
 
-- [ ] T006 [P] [US-01] [FR-008] [FR-018] [NFR-004] Escrever testes inicialmente falhos da migração, constraints, tipos `date`/`timestamptz`, chave idempotente e transação tarefa/evento em `backend/tests/TodoList.Api.IntegrationTests/Data/DatabaseSchemaTests.cs`; depende de T004.
-- [ ] T007 [P] [US-01] [FR-019] [NFR-004] Escrever testes inicialmente falhos para `application/problem+json` com `traceId`, CORS configurável, `/health/live` e `/health/ready` em `backend/tests/TodoList.Api.IntegrationTests/Common/ApplicationInfrastructureTests.cs`; depende de T004.
-- [ ] T008 [P] [US-01] [FR-004] [FR-005] Escrever teste inicialmente falho de geração dos enums e DTOs TypeScript a partir do OpenAPI em `frontend/src/features/tasks/api/schema.contract.test.ts`; depende de T005 e do contrato aprovado.
+- [x] T006 [P] [US-01] [FR-008] [FR-018] [NFR-004] Escrever testes inicialmente falhos da migração, constraints, tipos `date`/`timestamptz`, chave idempotente e transação tarefa/evento em `backend/tests/TodoList.Api.IntegrationTests/Data/DatabaseSchemaTests.cs`; depende de T004.
+- [x] T007 [P] [US-01] [FR-019] [NFR-004] Escrever testes inicialmente falhos para `application/problem+json` com `traceId`, CORS configurável, `/health/live` e `/health/ready` em `backend/tests/TodoList.Api.IntegrationTests/Common/ApplicationInfrastructureTests.cs`; depende de T004.
+- [x] T008 [P] [US-01] [FR-004] [FR-005] Escrever teste inicialmente falho de geração dos enums e DTOs TypeScript a partir do OpenAPI em `frontend/src/features/tasks/api/schema.contract.test.ts`; depende de T005 e do contrato aprovado.
 
 ### Implementação da fundação
 
-- [ ] T009 [US-01] [FR-004] [FR-005] [FR-008] [FR-017] [FR-018] Implementar enums, `TaskItem`, `TaskStatusEvent`, `TodoListDbContext`, mapeamentos e migração inicial em `backend/src/TodoList.Api/Features/Tasks/`, `backend/src/TodoList.Api/Data/` e `backend/src/TodoList.Api/Migrations/`; depende de T006; `DatabaseSchemaTests` deve passar.
-- [ ] T010 [US-01] [FR-019] [NFR-004] Configurar DI, banco, Problem Details, CORS, health checks, logging estruturado básico e OpenAPI 3.1 em `backend/src/TodoList.Api/Program.cs` e `backend/src/TodoList.Api/Common/`; depende de T007 e T009; `ApplicationInfrastructureTests` deve passar.
-- [ ] T011 [P] [US-01] [FR-004] [FR-005] Adicionar o comando de geração de tipos em `frontend/package.json`, o script em `frontend/scripts/generate-api-types.mjs` e a saída versionada em `frontend/src/features/tasks/api/schema.ts`; depende de T008; regenerar não pode deixar diferença no Git.
-- [ ] T012 [SETUP] [ADR-0002] Executar os testes de fundação e registrar em `docs/specs/001-essential-task/tasks.md` os comandos e resultados; depende de T009, T010 e T011; nenhuma falha inesperada pode permanecer.
+- [x] T009 [US-01] [FR-004] [FR-005] [FR-008] [FR-017] [FR-018] Implementar enums, `TaskItem`, `TaskStatusEvent`, `TodoListDbContext`, mapeamentos e migração inicial em `backend/src/TodoList.Api/Features/Tasks/`, `backend/src/TodoList.Api/Data/` e `backend/src/TodoList.Api/Migrations/`; depende de T006; `DatabaseSchemaTests` deve passar.
+- [x] T010 [US-01] [FR-019] [NFR-004] Configurar DI, banco, Problem Details, CORS, health checks, logging estruturado básico e OpenAPI 3.1 em `backend/src/TodoList.Api/Program.cs` e `backend/src/TodoList.Api/Common/`; depende de T007 e T009; `ApplicationInfrastructureTests` deve passar.
+- [x] T011 [P] [US-01] [FR-004] [FR-005] Adicionar o comando de geração de tipos em `frontend/package.json`, o script em `frontend/scripts/generate-api-types.mjs` e a saída versionada em `frontend/src/features/tasks/api/schema.ts`; depende de T008; regenerar não pode deixar diferença no Git.
+- [x] T012 [SETUP] [ADR-0002] Executar os testes de fundação e registrar em `docs/specs/001-essential-task/tasks.md` os comandos e resultados; depende de T009, T010 e T011; nenhuma falha inesperada pode permanecer.
 
 **Checkpoint:** schema, infraestrutura HTTP e tipos do contrato estão verificáveis; as histórias podem avançar sem criar novas camadas compartilhadas.
 
@@ -50,21 +51,21 @@
 
 ### Testes
 
-- [ ] T013 [P] [US-01] [AC-01] [AC-02] [AC-03] [FR-001] [FR-002] [FR-003] [FR-004] [FR-005] [FR-006] Escrever testes unitários inicialmente falhos para trim do título, limites, descrição multilinha, opcionais e valores padrão em `backend/tests/TodoList.Api.UnitTests/Features/Tasks/TaskInputValidatorTests.cs`; depende de T012.
-- [ ] T014 [P] [US-01] [AC-01] [AC-02] [AC-03] [AC-04] [AC-05] [FR-001] [FR-007] [FR-008] [FR-009] [FR-018] [NFR-004] [NFR-005] Escrever testes de integração inicialmente falhos para criar/listar/obter, persistir após novo cliente, aceitar prazo passado e repetir `Idempotency-Key` com conteúdo igual ou conflitante em `backend/tests/TodoList.Api.IntegrationTests/Features/Tasks/CreateAndReadTaskTests.cs`; depende de T012.
-- [ ] T015 [P] [US-01] [AC-01] [AC-02] [AC-03] [AC-05] [FR-007] [FR-009] [FR-012] [FR-019] [FR-020] [NFR-002] [NFR-003] [NFR-005] Escrever testes de componentes inicialmente falhos para inclusão rápida/detalhada, preservação de campos, feedback acessível, resumo e indicador textual de atraso em `frontend/src/features/tasks/components/CreateAndListTasks.test.tsx`; depende de T012.
-- [ ] T016 [P] [US-01] [AC-01] [AC-04] [SC-002] [SC-003] [SC-006] Escrever E2E inicialmente falho de criação mínima por teclado, criação detalhada, rejeição sem perda de dados e reload em `frontend/e2e/us01-create-and-view.spec.ts`; depende de T012.
+- [x] T013 [P] [US-01] [AC-01] [AC-02] [AC-03] [FR-001] [FR-002] [FR-003] [FR-004] [FR-005] [FR-006] Escrever testes unitários inicialmente falhos para trim do título, limites, descrição multilinha, opcionais e valores padrão em `backend/tests/TodoList.Api.UnitTests/Features/Tasks/TaskInputValidatorTests.cs`; depende de T012.
+- [x] T014 [P] [US-01] [AC-01] [AC-02] [AC-03] [AC-04] [AC-05] [FR-001] [FR-007] [FR-008] [FR-009] [FR-018] [NFR-004] [NFR-005] Escrever testes de integração inicialmente falhos para criar/listar/obter, persistir após novo cliente, aceitar prazo passado e repetir `Idempotency-Key` com conteúdo igual ou conflitante em `backend/tests/TodoList.Api.IntegrationTests/Features/Tasks/CreateAndReadTaskTests.cs`; depende de T012.
+- [x] T015 [P] [US-01] [AC-01] [AC-02] [AC-03] [AC-05] [FR-007] [FR-009] [FR-012] [FR-019] [FR-020] [NFR-002] [NFR-003] [NFR-005] Escrever testes de componentes inicialmente falhos para inclusão rápida/detalhada, preservação de campos, feedback acessível, resumo e indicador textual de atraso em `frontend/src/features/tasks/components/CreateAndListTasks.test.tsx`; depende de T012.
+- [x] T016 [P] [US-01] [AC-01] [AC-04] [SC-002] [SC-003] [SC-006] Escrever E2E inicialmente falho de criação mínima por teclado, criação detalhada, rejeição sem perda de dados e reload em `frontend/e2e/us01-create-and-view.spec.ts`; depende de T012.
 
 ### Implementação
 
-- [ ] T017 [US-01] [FR-001] [FR-002] [FR-003] [FR-004] [FR-005] [FR-006] Implementar `TaskInputValidator` e os modelos HTTP de criação/resposta em `backend/src/TodoList.Api/Features/Tasks/Create/` e `backend/src/TodoList.Api/Features/Tasks/TaskResponse.cs`; depende de T013; todos os testes unitários da tarefa devem passar.
-- [ ] T018 [US-01] [FR-001] [FR-008] [FR-012] [FR-018] [FR-019] [NFR-004] Implementar `POST /api/tasks` com transação e semântica completa de `Idempotency-Key` em `backend/src/TodoList.Api/Features/Tasks/Create/CreateTaskEndpoint.cs`; depende de T014 e T017; casos 201, replay 200, validação 400 e conflito 409 devem passar.
-- [ ] T019 [US-01] [FR-007] [FR-009] [FR-018] [FR-020] Implementar `GET /api/tasks` e `GET /api/tasks/{taskId}` em `backend/src/TodoList.Api/Features/Tasks/Read/`, com ordenação estável e limite de 1.000 itens; depende de T014 e T018; testes de leitura e persistência devem passar.
-- [ ] T020 [P] [US-01] [FR-001] [FR-009] [FR-019] Implementar cliente `fetch` tipado, mapeamento de Problem Details e estado de carregamento em `frontend/src/features/tasks/api/taskApi.ts` e `frontend/src/features/tasks/model/taskTypes.ts`; depende de T011; testes do cliente com MSW devem passar.
-- [ ] T021 [P] [US-01] [FR-001] [FR-003] [FR-005] [FR-006] [FR-012] [FR-019] Implementar formulário de inclusão rápida com expansão opcional de descrição, prioridade e prazo em `frontend/src/features/tasks/components/QuickAddTaskForm.tsx` e seu CSS Module; depende de T015 e T020; entradas devem permanecer após erro.
-- [ ] T022 [P] [US-01] [FR-007] [FR-009] [FR-020] [NFR-003] [NFR-005] Implementar `TaskList`, `TaskSummary` e formatadores de data/atraso em `frontend/src/features/tasks/components/`, `frontend/src/features/tasks/model/taskDates.ts` e CSS Modules; depende de T015 e T020; atraso e estados devem possuir texto além de cor.
-- [ ] T023 [US-01] [FR-009] [FR-019] [NFR-002] Integrar carregamento, formulário, listas ativa/concluída e região de feedback em `frontend/src/app/App.tsx` e `frontend/src/shared/FeedbackRegion.tsx`; depende de T019, T021 e T022; testes de componente devem passar.
-- [ ] T024 [US-01] [AC-01] [AC-02] [AC-03] [AC-04] [AC-05] Executar testes unitários, integração, componentes e E2E da US-01 e registrar resultados em `docs/specs/001-essential-task/tasks.md`; depende de T016, T018, T019 e T023; o checkpoint só passa com AC-01 a AC-05 demonstrados.
+- [x] T017 [US-01] [FR-001] [FR-002] [FR-003] [FR-004] [FR-005] [FR-006] Implementar `TaskInputValidator` e os modelos HTTP de criação/resposta em `backend/src/TodoList.Api/Features/Tasks/Create/` e `backend/src/TodoList.Api/Features/Tasks/TaskResponse.cs`; depende de T013; todos os testes unitários da tarefa devem passar.
+- [x] T018 [US-01] [FR-001] [FR-008] [FR-012] [FR-018] [FR-019] [NFR-004] Implementar `POST /api/tasks` com transação e semântica completa de `Idempotency-Key` em `backend/src/TodoList.Api/Features/Tasks/Create/CreateTaskEndpoint.cs`; depende de T014 e T017; casos 201, replay 200, validação 400 e conflito 409 devem passar.
+- [x] T019 [US-01] [FR-007] [FR-009] [FR-018] [FR-020] Implementar `GET /api/tasks` e `GET /api/tasks/{taskId}` em `backend/src/TodoList.Api/Features/Tasks/Read/`, com ordenação estável e limite de 1.000 itens; depende de T014 e T018; testes de leitura e persistência devem passar.
+- [x] T020 [P] [US-01] [FR-001] [FR-009] [FR-019] Implementar cliente `fetch` tipado, mapeamento de Problem Details e estado de carregamento em `frontend/src/features/tasks/api/taskApi.ts` e `frontend/src/features/tasks/model/taskTypes.ts`; depende de T011; testes do cliente com MSW devem passar.
+- [x] T021 [P] [US-01] [FR-001] [FR-003] [FR-005] [FR-006] [FR-012] [FR-019] Implementar formulário de inclusão rápida com expansão opcional de descrição, prioridade e prazo em `frontend/src/features/tasks/components/QuickAddTaskForm.tsx` e seu CSS Module; depende de T015 e T020; entradas devem permanecer após erro.
+- [x] T022 [P] [US-01] [FR-007] [FR-009] [FR-020] [NFR-003] [NFR-005] Implementar `TaskList`, `TaskSummary` e formatadores de data/atraso em `frontend/src/features/tasks/components/`, `frontend/src/features/tasks/model/taskDates.ts` e CSS Modules; depende de T015 e T020; atraso e estados devem possuir texto além de cor.
+- [x] T023 [US-01] [FR-009] [FR-019] [NFR-002] Integrar carregamento, formulário, listas ativa/concluída e região de feedback em `frontend/src/app/App.tsx` e `frontend/src/shared/FeedbackRegion.tsx`; depende de T019, T021 e T022; testes de componente devem passar.
+- [x] T024 [US-01] [AC-01] [AC-02] [AC-03] [AC-04] [AC-05] Executar testes unitários, integração, componentes e E2E da US-01 e registrar resultados em `docs/specs/001-essential-task/tasks.md`; depende de T016, T018, T019 e T023; o checkpoint só passa com AC-01 a AC-05 demonstrados.
 
 **Checkpoint:** US-01 entrega um MVP persistente e demonstrável isoladamente, inclusive por teclado e após reload.
 
@@ -184,6 +185,31 @@ Ao concluir uma tarefa, acrescente uma entrada no formato:
 
 Não marque tarefa incompleta, não substitua falha por descrição otimista e não crie `validation.md` durante a implementação.
 
+- T001 — solução e três projetos .NET 10 criados com dependências centralizadas e lockfiles; `dotnet build backend/TodoList.slnx --no-restore --disable-build-servers -m:1`; 0 avisos e 0 erros.
+- T002 — scaffold React + TypeScript + Vite criado; `npm run build --prefix frontend`; build de produção concluído.
+- T003 — PostgreSQL 18, variáveis locais e volume nomeado configurados; `docker-compose -f compose.yaml config`; configuração válida. O mount foi ajustado para `/var/lib/postgresql`, exigido pela imagem 18.
+- T004 — fixture PostgreSQL Testcontainers, coleção isolada e `WebApplicationFactory` criadas; `ContainerSmokeTests`; container iniciou, aceitou conexão e encerrou corretamente.
+- T005 — Vitest, Testing Library, MSW e Playwright configurados; `npm run test:run --prefix frontend` e `npm run test:e2e --prefix frontend`; ambos os runners executaram testes reais.
+- T006 — `DatabaseSchemaTests` escrito antes das entidades/migração e inicialmente falho por tipos ausentes; após T009, 4 cenários de schema, tipos temporais, idempotência e rollback passaram.
+- T007 — `ApplicationInfrastructureTests` escrito antes do host HTTP e inicialmente falho por infraestrutura ausente; após T010, 3 cenários de health checks, Problem Details e CORS passaram.
+- T008 — teste do schema TypeScript escrito antes da saída gerada; o build falhou por módulo ausente e passou após T011.
+- T009 — entidades, mapeamentos e migração `20261005022033_InitialCreate` implementados; `DatabaseSchemaTests`; 4 testes passaram em PostgreSQL efêmero.
+- T010 — DI, EF Core, Problem Details com `traceId`, CORS, health checks e OpenAPI configurados; `ApplicationInfrastructureTests`; 3 testes passaram.
+- T011 — geração OpenAPI → TypeScript e schema versionado criados; `npm run generate:api --prefix frontend`; SHA-1 anterior e posterior `5f0d66b7625d238c6dc563dd4dcb295fa33444a6`, sem drift.
+- T012 — checkpoint da fundação executado; 8/8 testes de integração iniciais, 2/2 testes frontend iniciais e builds backend/frontend aprovados; nenhuma falha inesperada permaneceu.
+- T013 — testes do validador escritos primeiro e inicialmente falhos porque o namespace de criação não existia; após T017, 7/7 testes unitários passaram.
+- T014 — testes HTTP escritos primeiro e inicialmente falhos com respostas 404; após T018/T019, 6/6 cenários de criação, idempotência, leitura, persistência, validação e prazo passado passaram.
+- T015 — testes de componentes escritos primeiro e inicialmente falhos porque `App` não existia; após T020–T023, criação rápida/detalhada, preservação, feedback, resumo e atraso passaram.
+- T016 — jornada Playwright escrita antes da interface e API; após T018–T023, os 3 cenários da US-01 passaram em Chromium usando frontend, backend e PostgreSQL reais.
+- T017 — `TaskInputValidator`, normalização, limites, defaults e modelos HTTP implementados; `dotnet test ...UnitTests.csproj`; 7/7 passaram.
+- T018 — `POST /api/tasks` transacional implementado com UUID idempotente; testes confirmaram 201, replay 200, validação 400, conflito 409 e nenhuma duplicação.
+- T019 — `GET /api/tasks` e `GET /api/tasks/{taskId}` implementados com views, ordenação estável, `AsNoTracking` e limite de 1.000; testes confirmaram leitura e nova sessão.
+- T020 — cliente `fetch` tipado pelo contrato implementado, incluindo chave idempotente e mapeamento de Problem Details; 3 testes MSW específicos passaram.
+- T021 — formulário rápido/detalhado acessível implementado; teste confirmou que erro preserva título, descrição, prioridade e prazo.
+- T022 — resumo, listas, datas locais e marcador textual `Atrasada` implementados; testes confirmaram comunicação textual de status/prioridade/atraso.
+- T023 — `App` integrou carregamento, criação, listas e região `status`/`alert`; suíte de componentes passou.
+- T024 — checkpoint US-01 executado: `dotnet test backend/TodoList.slnx --no-restore --disable-build-servers -m:1` (21/21), `npm run test:run --prefix frontend` (8/8), `npm run build --prefix frontend` e `npm run test:e2e --prefix frontend` (4/4); AC-01 a AC-05 demonstrados.
+
 ## Aprovação do planejamento
 
 **Decisão:** Approved
@@ -196,6 +222,12 @@ Não marque tarefa incompleta, não substitua falha por descrição otimista e n
 **Aceito por:** pendente
 **Data:** pendente
 
+### Aceite do incremento T001–T024
+
+**Decisão:** Pending
+**Aceito por:** pendente
+**Data:** pendente
+
 ## Registro de decisões
 
 - 2026-10-04: tarefas derivadas da SPEC-001 e do plano aprovados.
@@ -203,3 +235,4 @@ Não marque tarefa incompleta, não substitua falha por descrição otimista e n
 - 2026-10-04: testes posicionados antes da implementação correspondente e cobertura revisada sem itens órfãos.
 - 2026-10-04: planejamento movido para `Ready for review`; implementação mantida em `Not started`.
 - 2026-10-04: planejamento aprovado pelo mantenedor; implementação T001–T024 iniciada.
+- 2026-10-04: T001–T024 concluídas com AC-01 a AC-05 demonstrados; incremento movido para `Ready for review`, mantendo a implementação total da SPEC-001 em andamento.

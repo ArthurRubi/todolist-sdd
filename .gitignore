@@ -18,6 +18,8 @@ coverage/
 .vite/
 *.tsbuildinfo
 npm-debug.log*
+playwright-report/
+test-results/
 
 # .NET
 **/bin/
