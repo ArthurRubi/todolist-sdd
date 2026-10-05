@@ -6,6 +6,7 @@ type Props = {
   title: string
   emptyMessage: string
   tasks: Task[]
+  onOpenTask?: (task: Task, trigger: HTMLButtonElement) => void
 }
 
 const statusLabels: Record<Task['status'], string> = {
@@ -23,7 +24,7 @@ const priorityLabels: Record<Task['priority'], string> = {
   urgent: 'Prioridade urgente',
 }
 
-export function TaskList({ title, emptyMessage, tasks }: Props) {
+export function TaskList({ title, emptyMessage, tasks, onOpenTask }: Props) {
   return (
     <section className={styles.listSection} aria-labelledby={`list-${toId(title)}`}>
       <div className={styles.listHeading}>
@@ -51,6 +52,16 @@ export function TaskList({ title, emptyMessage, tasks }: Props) {
                 <span>Atualizada em {formatInstant(task.updatedAt)}</span>
                 {task.completedAt && <span>Concluída em {formatInstant(task.completedAt)}</span>}
               </div>
+              {onOpenTask && (
+                <button
+                  className={styles.detailsButton}
+                  type="button"
+                  aria-label={`Abrir detalhes de ${task.title}`}
+                  onClick={(event) => onOpenTask(task, event.currentTarget)}
+                >
+                  Ver e editar detalhes
+                </button>
+              )}
             </article>
           ))}
         </div>

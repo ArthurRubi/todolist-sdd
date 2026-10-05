@@ -1,5 +1,6 @@
 using TodoList.Api.Features.Tasks.Create;
 using TodoList.Api.Features.Tasks.Read;
+using TodoList.Api.Features.Tasks.Update;
 
 namespace TodoList.Api.Features.Tasks;
 
@@ -10,6 +11,7 @@ public static class TaskEndpoints
         var group = endpoints.MapGroup("/api/tasks").WithTags("Tasks");
         group.MapCreateTask();
         group.MapReadTaskEndpoints();
+        group.MapUpdateTask();
         return endpoints;
     }
 }

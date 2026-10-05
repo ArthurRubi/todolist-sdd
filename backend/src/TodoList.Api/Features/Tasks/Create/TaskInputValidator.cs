@@ -2,10 +2,33 @@ namespace TodoList.Api.Features.Tasks.Create;
 
 public static class TaskInputValidator
 {
-    public static TaskInputValidationResult Validate(CreateTaskRequest request)
+    public static TaskInputValidationResult Validate(CreateTaskRequest request) => ValidateFields(
+        request.Title,
+        request.Description,
+        request.Priority,
+        request.DueDate,
+        priorityIsRequired: false);
+
+    public static TaskInputValidationResult ValidateForUpdate(
+        string? title,
+        string? description,
+        string? priority,
+        DateOnly? dueDate) => ValidateFields(
+            title,
+            description,
+            priority,
+            dueDate,
+            priorityIsRequired: true);
+
+    private static TaskInputValidationResult ValidateFields(
+        string? rawTitle,
+        string? description,
+        string? rawPriority,
+        DateOnly? dueDate,
+        bool priorityIsRequired)
     {
         var errors = new Dictionary<string, string[]>(StringComparer.OrdinalIgnoreCase);
-        var title = request.Title?.Trim() ?? string.Empty;
+        var title = rawTitle?.Trim() ?? string.Empty;
 
         if (title.Length == 0)
         {
@@ -16,12 +39,14 @@ public static class TaskInputValidator
             errors["title"] = ["O título deve ter no máximo 200 caracteres."];
         }
 
-        if (request.Description?.Length > 10_000)
+        if (description?.Length > 10_000)
         {
             errors["description"] = ["A descrição deve ter no máximo 10.000 caracteres."];
         }
 
-        var priority = ParsePriority(request.Priority);
+        var priority = priorityIsRequired && rawPriority is null
+            ? null
+            : ParsePriority(rawPriority);
         if (priority is null)
         {
             errors["priority"] = ["A prioridade informada é inválida."];
@@ -35,9 +60,9 @@ public static class TaskInputValidator
         return new TaskInputValidationResult(
             new NormalizedTaskInput(
                 title,
-                string.IsNullOrEmpty(request.Description) ? null : request.Description,
+                string.IsNullOrEmpty(description) ? null : description,
                 priority!.Value,
-                request.DueDate),
+                dueDate),
             errors);
     }
 

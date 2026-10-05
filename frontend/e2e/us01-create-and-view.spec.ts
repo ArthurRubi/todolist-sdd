@@ -12,9 +12,10 @@ test.describe('US-01 — criar e visualizar tarefa', () => {
     await expect(page.getByRole('heading', { name: title })).toBeVisible()
 
     await page.reload()
-    await expect(page.getByRole('heading', { name: title })).toBeVisible()
-    await expect(page.getByText('Não iniciada')).toBeVisible()
-    await expect(page.getByText('Sem prioridade')).toBeVisible()
+    const card = page.getByRole('article').filter({ hasText: title })
+    await expect(card.getByRole('heading', { name: title })).toBeVisible()
+    await expect(card.getByText('Não iniciada')).toBeVisible()
+    await expect(card.getByText('Sem prioridade')).toBeVisible()
   })
 
   test('cria tarefa detalhada com prazo passado e a identifica como atrasada', async ({ page }) => {

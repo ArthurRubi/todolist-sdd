@@ -54,3 +54,19 @@
   color: var(--muted);
   font-size: 0.76rem;
 }
+
+.detailsButton {
+  margin-top: 0.9rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 0.65rem;
+  background: white;
+  color: var(--accent);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 750;
+  padding: 0.5rem 0.65rem;
+}
+
+.detailsButton:hover { border-color: var(--accent); }
+.detailsButton:focus-visible { outline: 3px solid rgba(80, 70, 229, 0.22); outline-offset: 2px; }

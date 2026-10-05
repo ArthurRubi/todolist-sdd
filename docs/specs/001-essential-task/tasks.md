@@ -6,7 +6,7 @@
 **Planejamento:** Approved
 **Implementação:** In progress
 **Incremento T001–T024:** Accepted
-**Incremento T025–T032:** In progress
+**Incremento T025–T032:** Ready for review
 
 ## Formato
 
@@ -78,17 +78,17 @@
 
 ### Testes
 
-- [ ] T025 [P] [US-02] [AC-06] [AC-07] [AC-08] [AC-09] [FR-010] [FR-011] [FR-018] [NFR-004] Escrever testes de integração inicialmente falhos para `PUT /api/tasks/{taskId}`, remoção de opcionais, rollback integral e edição de concluída em `backend/tests/TodoList.Api.IntegrationTests/Features/Tasks/UpdateTaskTests.cs`; depende de T024.
-- [ ] T026 [P] [US-02] [AC-06] [AC-07] [AC-08] [AC-09] [FR-012] [FR-019] [FR-020] [NFR-002] [NFR-003] [NFR-005] Escrever testes de componente inicialmente falhos do painel de detalhes, validação sem perda, datas localizadas e campos automáticos somente leitura em `frontend/src/features/tasks/components/TaskDetailsPanel.test.tsx`; depende de T024.
-- [ ] T027 [P] [US-02] [AC-06] [AC-07] [AC-08] [AC-09] [SC-002] [SC-003] Escrever E2E inicialmente falho de editar, limpar opcionais, corrigir erro e editar concluída em `frontend/e2e/us02-edit-task.spec.ts`; depende de T024.
+- [x] T025 [P] [US-02] [AC-06] [AC-07] [AC-08] [AC-09] [FR-010] [FR-011] [FR-018] [NFR-004] Escrever testes de integração inicialmente falhos para `PUT /api/tasks/{taskId}`, remoção de opcionais, rollback integral e edição de concluída em `backend/tests/TodoList.Api.IntegrationTests/Features/Tasks/UpdateTaskTests.cs`; depende de T024.
+- [x] T026 [P] [US-02] [AC-06] [AC-07] [AC-08] [AC-09] [FR-012] [FR-019] [FR-020] [NFR-002] [NFR-003] [NFR-005] Escrever testes de componente inicialmente falhos do painel de detalhes, validação sem perda, datas localizadas e campos automáticos somente leitura em `frontend/src/features/tasks/components/TaskDetailsPanel.test.tsx`; depende de T024.
+- [x] T027 [P] [US-02] [AC-06] [AC-07] [AC-08] [AC-09] [SC-002] [SC-003] Escrever E2E inicialmente falho de editar, limpar opcionais, corrigir erro e editar concluída em `frontend/e2e/us02-edit-task.spec.ts`; depende de T024.
 
 ### Implementação
 
-- [ ] T028 [US-02] [FR-002] [FR-003] [FR-005] [FR-006] [FR-010] [FR-011] Implementar atualização validada e atômica em `backend/src/TodoList.Api/Features/Tasks/Update/UpdateTaskEndpoint.cs`; depende de T025 e reutiliza T017; testes devem provar que uma falha não altera nenhum campo persistido.
-- [ ] T029 [P] [US-02] [FR-010] [FR-019] Estender `frontend/src/features/tasks/api/taskApi.ts` com atualização tipada e tratamento de erros por campo; depende de T025 e T020; testes MSW devem passar.
-- [ ] T030 [US-02] [FR-010] [FR-012] [FR-020] [NFR-002] [NFR-005] Implementar `TaskDetailsPanel.tsx`, formulário editável, datas somente leitura e restauração previsível de foco em `frontend/src/features/tasks/components/`; depende de T026 e T029.
-- [ ] T031 [US-02] [FR-009] [FR-019] [NFR-003] Integrar abertura/fechamento do painel, atualização da lista somente após sucesso e feedback acessível em `frontend/src/app/App.tsx`; depende de T028 e T030; componentes e E2E não podem exibir falha como persistida.
-- [ ] T032 [US-02] [AC-06] [AC-07] [AC-08] [AC-09] Executar a suíte da US-02 e registrar evidências em `docs/specs/001-essential-task/tasks.md`; depende de T027, T028 e T031; AC-06 a AC-09 devem passar isoladamente.
+- [x] T028 [US-02] [FR-002] [FR-003] [FR-005] [FR-006] [FR-010] [FR-011] Implementar atualização validada e atômica em `backend/src/TodoList.Api/Features/Tasks/Update/UpdateTaskEndpoint.cs`; depende de T025 e reutiliza T017; testes devem provar que uma falha não altera nenhum campo persistido.
+- [x] T029 [P] [US-02] [FR-010] [FR-019] Estender `frontend/src/features/tasks/api/taskApi.ts` com atualização tipada e tratamento de erros por campo; depende de T025 e T020; testes MSW devem passar.
+- [x] T030 [US-02] [FR-010] [FR-012] [FR-020] [NFR-002] [NFR-005] Implementar `TaskDetailsPanel.tsx`, formulário editável, datas somente leitura e restauração previsível de foco em `frontend/src/features/tasks/components/`; depende de T026 e T029.
+- [x] T031 [US-02] [FR-009] [FR-019] [NFR-003] Integrar abertura/fechamento do painel, atualização da lista somente após sucesso e feedback acessível em `frontend/src/app/App.tsx`; depende de T028 e T030; componentes e E2E não podem exibir falha como persistida.
+- [x] T032 [US-02] [AC-06] [AC-07] [AC-08] [AC-09] Executar a suíte da US-02 e registrar evidências em `docs/specs/001-essential-task/tasks.md`; depende de T027, T028 e T031; AC-06 a AC-09 devem passar isoladamente.
 
 **Checkpoint:** US-02 é demonstrável sem a US-03 e mantém atomicidade, dados digitados e datas automáticas.
 
@@ -210,6 +210,14 @@ Não marque tarefa incompleta, não substitua falha por descrição otimista e n
 - T022 — resumo, listas, datas locais e marcador textual `Atrasada` implementados; testes confirmaram comunicação textual de status/prioridade/atraso.
 - T023 — `App` integrou carregamento, criação, listas e região `status`/`alert`; suíte de componentes passou.
 - T024 — checkpoint US-01 executado: `dotnet test backend/TodoList.slnx --no-restore --disable-build-servers -m:1` (21/21), `npm run test:run --prefix frontend` (8/8), `npm run build --prefix frontend` e `npm run test:e2e --prefix frontend` (4/4); AC-01 a AC-05 demonstrados.
+- T025 — `UpdateTaskTests` criado antes do endpoint e falhou com `405 Method Not Allowed`; após T028, 5/5 cenários de atualização, remoção, rollback, concluída e 404 passaram no PostgreSQL efêmero.
+- T026 — `TaskDetailsPanel.test.tsx` criado antes do componente e falhou por módulo ausente; após T030/T031, 3/3 cenários de campos, datas somente leitura, remoção e preservação após erro passaram.
+- T027 — jornada Playwright criada antes do painel; após T028–T031, 3/3 cenários de edição completa, correção/remoção e tarefa concluída passaram em Chromium com banco real.
+- T028 — `PUT /api/tasks/{taskId}` implementado com validação integral antes da mutação, atualização de `updatedAt` apenas em mudança efetiva e preservação de status/conclusão; 5/5 testes dedicados passaram.
+- T029 — cliente `updateTask` tipado pelo OpenAPI e tratamento de Problem Details reutilizado; teste MSW inicialmente falhou com função ausente e passou após a implementação (4/4 testes do cliente).
+- T030 — painel de detalhes implementado com formulário completo, datas/ID/estado somente leitura, campos preservados em erro e foco inicial/restaurado; testes de componente e E2E passaram.
+- T031 — abertura/fechamento, substituição da tarefa somente após sucesso e feedback acessível integrados ao `App`; suíte frontend passou sem regressão.
+- T032 — checkpoint US-02 executado: `dotnet test backend/TodoList.slnx --no-restore --disable-build-servers -m:1` (26/26), `npm run test:run --prefix frontend` (12/12), `npm run build --prefix frontend` e `npm run test:e2e --prefix frontend` (7/7); AC-06 a AC-09 demonstrados.
 
 ## Aprovação do planejamento
 
@@ -229,6 +237,12 @@ Não marque tarefa incompleta, não substitua falha por descrição otimista e n
 **Aceito por:** Arthur Rubi
 **Data:** 2026-10-05
 
+### Aceite do incremento T025–T032
+
+**Decisão:** Pending
+**Aceito por:** pendente
+**Data:** pendente
+
 ## Registro de decisões
 
 - 2026-10-04: tarefas derivadas da SPEC-001 e do plano aprovados.
@@ -238,3 +252,4 @@ Não marque tarefa incompleta, não substitua falha por descrição otimista e n
 - 2026-10-04: planejamento aprovado pelo mantenedor; implementação T001–T024 iniciada.
 - 2026-10-04: T001–T024 concluídas com AC-01 a AC-05 demonstrados; incremento movido para `Ready for review`, mantendo a implementação total da SPEC-001 em andamento.
 - 2026-10-05: incremento T001–T024 aceito pelo mantenedor; implementação de T025–T032 autorizada e iniciada.
+- 2026-10-05: T025–T032 concluídas com AC-06 a AC-09 demonstrados; incremento movido para `Ready for review`, mantendo a implementação total da SPEC-001 em andamento.

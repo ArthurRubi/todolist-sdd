@@ -1,4 +1,4 @@
-import type { CreateTaskInput, Task } from '../model/taskTypes'
+import type { CreateTaskInput, Task, UpdateTaskInput } from '../model/taskTypes'
 import { TaskApiError } from '../model/taskTypes'
 
 const apiBaseUrl = (import.meta.env.VITE_API_URL ?? 'http://localhost:5080/api').replace(/\/$/, '')
@@ -21,6 +21,14 @@ export async function createTask(input: CreateTaskInput): Promise<Task> {
       'Content-Type': 'application/json',
       'Idempotency-Key': crypto.randomUUID(),
     },
+    body: JSON.stringify(input),
+  })
+}
+
+export async function updateTask(taskId: string, input: UpdateTaskInput): Promise<Task> {
+  return request<Task>(`/tasks/${taskId}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(input),
   })
 }

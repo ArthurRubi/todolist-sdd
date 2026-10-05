@@ -1,7 +1,7 @@
 import { HttpResponse, http } from 'msw'
 import { describe, expect, it } from 'vitest'
 import { server } from '../../../test/server'
-import { createTask, listTasks } from './taskApi'
+import { createTask, listTasks, updateTask } from './taskApi'
 
 const task = {
   id: '33333333-3333-4333-8333-333333333333',
@@ -70,6 +70,36 @@ describe('taskApi', () => {
       message: 'O título deve ser informado.',
       fieldErrors: { title: ['O título deve ser informado.'] },
       traceId: 'trace-123',
+    })
+  })
+
+  it('envia a substituição completa dos campos editáveis', async () => {
+    server.use(
+      http.put(`*/api/tasks/${task.id}`, async ({ request }) => {
+        expect(await request.json()).toEqual({
+          title: 'Cliente atualizado',
+          description: null,
+          priority: 'low',
+          dueDate: null,
+        })
+        return HttpResponse.json({
+          ...task,
+          title: 'Cliente atualizado',
+          priority: 'low',
+          updatedAt: '2026-10-05T12:00:00Z',
+        })
+      }),
+    )
+
+    await expect(updateTask(task.id, {
+      title: 'Cliente atualizado',
+      description: null,
+      priority: 'low',
+      dueDate: null,
+    })).resolves.toMatchObject({
+      id: task.id,
+      title: 'Cliente atualizado',
+      priority: 'low',
     })
   })
 })
