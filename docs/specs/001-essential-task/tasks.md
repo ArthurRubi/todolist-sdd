@@ -5,7 +5,8 @@
 **Contrato:** [Tasks API](./contracts/tasks-api.openapi.yaml)
 **Planejamento:** Approved
 **Implementação:** In progress
-**Incremento T001–T024:** Ready for review
+**Incremento T001–T024:** Accepted
+**Incremento T025–T032:** In progress
 
 ## Formato
 
@@ -224,9 +225,9 @@ Não marque tarefa incompleta, não substitua falha por descrição otimista e n
 
 ### Aceite do incremento T001–T024
 
-**Decisão:** Pending
-**Aceito por:** pendente
-**Data:** pendente
+**Decisão:** Accepted
+**Aceito por:** Arthur Rubi
+**Data:** 2026-10-05
 
 ## Registro de decisões
 
@@ -236,3 +237,4 @@ Não marque tarefa incompleta, não substitua falha por descrição otimista e n
 - 2026-10-04: planejamento movido para `Ready for review`; implementação mantida em `Not started`.
 - 2026-10-04: planejamento aprovado pelo mantenedor; implementação T001–T024 iniciada.
 - 2026-10-04: T001–T024 concluídas com AC-01 a AC-05 demonstrados; incremento movido para `Ready for review`, mantendo a implementação total da SPEC-001 em andamento.
+- 2026-10-05: incremento T001–T024 aceito pelo mantenedor; implementação de T025–T032 autorizada e iniciada.
