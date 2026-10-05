@@ -183,6 +183,6 @@ Este aceite, se concedido, encerra somente a validação parcial de T033–T041.
 
 ## Aceite humano da validação T033–T041
 
-**Decisão:** Pending
-**Aceito por:** pendente
-**Data:** pendente
+**Decisão:** Accepted
+**Aceito por:** Arthur Rubi
+**Data:** 2026-10-05
