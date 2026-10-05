@@ -15,4 +15,4 @@ description: Implemente tarefas SDD já prontas, preservando escopo, testes, ras
 8. Ao terminar o incremento selecionado, execute as verificações definidas no plano, marque a implementação como `Ready for review`, apresente as evidências e pare.
 9. Peça aceite humano explícito. Somente após essa nova confirmação marque a implementação como `Accepted` e permita `$sdd-validate`.
 
-Não declare a funcionalidade validada nem inicie a validação nesta etapa. Na resposta final, liste tarefas concluídas, testes, arquivos principais e desvios, e peça aceite ou ajustes.
+Não declare a funcionalidade validada nem inicie a validação nesta etapa. Na resposta final, liste tarefas concluídas, testes, arquivos principais e desvios, peça aceite ou ajustes e informe que, após o aceite, a próxima etapa é `$sdd-validate`, com um exemplo curto para a spec atual.

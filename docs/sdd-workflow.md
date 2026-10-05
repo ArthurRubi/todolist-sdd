@@ -72,6 +72,8 @@ Validação combina evidências automatizadas e revisão dos critérios de aceit
 
 O autor do artefato não presume aprovação. Ao finalizar qualquer etapa, deve parar, apresentar o resultado e pedir aprovação explícita para avançar. A confirmação humana deve ser registrada no artefato com data. Mudanças editoriais podem ser aplicadas diretamente; mudanças de significado em artefatos aprovados usam `docs/changes/CHG-NNN-slug.md`.
 
+Toda resposta de encerramento deve indicar nominalmente a próxima skill após a aprovação e mostrar uma invocação curta. A última etapa informa que o item seguirá para `Done` e aponta a skill adequada para o próximo item do backlog. Informar o próximo passo não significa executá-lo antes da confirmação.
+
 ## Skills do Codex
 
 As skills de `.codex/skills/` materializam cada etapa. Elas usam os documentos deste diretório como fonte de verdade e não substituem os gates humanos.

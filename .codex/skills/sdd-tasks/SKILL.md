@@ -16,4 +16,4 @@ description: Converta uma spec e um plano aprovados em tarefas pequenas, ordenad
 9. Faça uma revisão de cobertura. Quando não houver requisito órfão, caminho fictício ou dependência ambígua, altere o planejamento para `Ready for review`.
 10. Apresente as tarefas, peça aprovação explícita e pare. Somente essa nova confirmação permite marcar o planejamento como `Approved` e iniciar a implementação.
 
-Não implemente tarefas nesta etapa. Na resposta final, informe quantidade por fase, caminho crítico e paralelismo real, e peça aprovação ou ajustes.
+Não implemente tarefas nesta etapa. Na resposta final, informe quantidade por fase, caminho crítico e paralelismo real, peça aprovação ou ajustes e informe que, após a aprovação, a próxima etapa é `$sdd-implement`, com um exemplo curto para o incremento ou história inicial.

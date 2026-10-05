@@ -15,4 +15,4 @@ description: Crie ou refine uma especificação funcional SDD com histórias, re
 8. Marque somente dúvidas materiais como `NEEDS CLARIFICATION`. Quando não houver lacunas bloqueantes, mude o estado para `Ready for review`.
 9. Ao chegar a `Ready for review`, apresente a spec, peça aprovação explícita e pare. Nunca marque como `Approved` nem inicie o plano antes dessa nova confirmação; registre aprovador e data quando houver.
 
-Não produza plano técnico ou código nesta etapa. Na resposta final, destaque decisões de produto e dúvidas, e peça aprovação ou ajustes.
+Não produza plano técnico ou código nesta etapa. Na resposta final, destaque decisões de produto e dúvidas, peça aprovação ou ajustes e informe que, após a aprovação, a próxima etapa é `$sdd-plan`, com um exemplo curto de invocação para a spec atual.

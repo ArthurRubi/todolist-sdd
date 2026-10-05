@@ -4,4 +4,4 @@ Use `CHG-NNN-slug.md` quando uma descoberta ou solicitação alterar o significa
 
 Correções editoriais sem impacto em comportamento, escopo ou decisão não exigem change record.
 
-O próximo identificador disponível é `002`.
+O próximo identificador disponível é `003`.

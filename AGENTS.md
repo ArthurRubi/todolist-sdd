@@ -18,6 +18,7 @@ Se um artefato obrigatório não existir ou ainda não tiver o estado exigido pe
 
 - Para nova capacidade ou mudança observável, siga: ideia → spec → plano → tarefas/testes → implementação → validação.
 - Ao finalizar qualquer etapa, pare em `Ready for review`, apresente o resultado e peça aprovação humana explícita. Não invoque nem execute a etapa seguinte no mesmo fluxo sem essa nova confirmação.
+- Na mesma resposta, informe qual skill deve ser invocada após a aprovação e forneça um exemplo curto de uso. Essa orientação é obrigatória, mas não autoriza antecipar a próxima etapa.
 - Não implemente uma funcionalidade sem `spec.md`, `plan.md` e `tasks.md` aprovados.
 - Use os templates de `docs/templates/` e mantenha os identificadores de rastreabilidade.
 - Atualize artefatos quando decisões ou escopo mudarem; registre o motivo em `docs/changes/` quando a mudança afetar um artefato aprovado.

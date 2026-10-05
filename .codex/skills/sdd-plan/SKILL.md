@@ -15,4 +15,4 @@ description: Produza o plano técnico SDD de uma spec aprovada, incluindo arquit
 8. Prefira a abordagem mais simples. Crie um ADR somente para decisão durável e transversal.
 9. Termine em `Ready for review` sem lacunas materiais. Apresente o plano, peça aprovação explícita e pare. Somente essa nova confirmação permite `Approved` e a criação de tarefas.
 
-Não decomponha todas as tarefas nem implemente código nesta etapa. Na resposta final, resuma decisões, riscos e exceções, e peça aprovação ou ajustes.
+Não decomponha todas as tarefas nem implemente código nesta etapa. Na resposta final, resuma decisões, riscos e exceções, peça aprovação ou ajustes e informe que, após a aprovação, a próxima etapa é `$sdd-tasks`, com um exemplo curto de invocação para a spec atual.

@@ -15,4 +15,4 @@ description: Valide uma implementação SDD contra requisitos, cenários, tarefa
 8. Defina o veredito `Passed` somente se todos os itens obrigatórios passarem. Use `Failed` para lacuna bloqueante e `Passed with exceptions` apenas com risco, justificativa e próximo passo explícitos.
 9. Marque o relatório como `Ready for review`, apresente as evidências, peça aceite humano explícito e pare. Somente essa nova confirmação permite marcar o relatório como `Accepted` e a funcionalidade como `Done`.
 
-Na resposta final, comece pelo veredito, resuma evidências, falhas e riscos, e peça aceite ou ajustes. Não esconda comando não executado como aprovação.
+Na resposta final, comece pelo veredito, resuma evidências, falhas e riscos, e peça aceite ou ajustes. Informe que, após o aceite, a funcionalidade vai para `Done`; em seguida, indique `$sdd-specify` para a próxima ideia já aceita ou `$sdd-idea` para uma nova descoberta, conforme o backlog. Não esconda comando não executado como aprovação.

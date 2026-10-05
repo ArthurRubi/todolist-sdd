@@ -15,4 +15,4 @@ Use quando o problema, público, valor ou limite ainda estiverem em descoberta. 
 6. Use `NEEDS CLARIFICATION` apenas quando a resposta mudar materialmente valor ou limites; faça suposições reversíveis quando seguro e registre-as.
 7. Termine em `Ready for review` quando o documento estiver completo. Apresente o resultado, peça aprovação explícita e pare. Somente essa confirmação permite mudar para `Accepted` e iniciar a spec.
 
-Na resposta final, resuma valor, limites e decisões propostas, e peça que o usuário aprove, rejeite ou solicite ajustes. Não inicie a especificação antes de uma nova confirmação, mesmo que o pedido original mencione etapas posteriores.
+Na resposta final, resuma valor, limites e decisões propostas, e peça que o usuário aprove, rejeite ou solicite ajustes. Informe que, após a aprovação, a próxima etapa é `$sdd-specify` e dê um exemplo curto de invocação. Não inicie a especificação antes de uma nova confirmação, mesmo que o pedido original mencione etapas posteriores.

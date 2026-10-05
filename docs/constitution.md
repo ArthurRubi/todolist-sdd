@@ -1,8 +1,8 @@
 # Constituição do TodoList SDD
 
-**Versão:** 1.1.0
+**Versão:** 1.2.0
 **Ratificada em:** 2026-10-02
-**Última alteração:** 2026-10-02
+**Última alteração:** 2026-10-04
 
 ## Propósito
 
@@ -19,6 +19,8 @@ Correções emergenciais podem começar por uma reprodução mínima, mas devem 
 O fluxo padrão é ideia aceita, especificação aprovada, plano aprovado, tarefas aprovadas, implementação aceita e validação aceita. Um artefato posterior não pode esconder lacunas do anterior.
 
 Toda etapa termina em `Ready for review` e exige uma confirmação humana explícita antes da próxima. Isso se aplica a ideia, especificação, plano, tarefas, implementação e validação. O Codex pode produzir artefatos e recomendar uma decisão, mas não presumir aprovação nem iniciar automaticamente a etapa seguinte.
+
+Ao apresentar um gate para aprovação, o Codex deve informar também a próxima skill que poderá ser invocada após a confirmação e dar um exemplo curto de uso. Essa orientação não autoriza executar a próxima etapa antecipadamente.
 
 ## III. Rastreabilidade ponta a ponta
 
