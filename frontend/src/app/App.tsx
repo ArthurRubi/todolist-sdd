@@ -1,10 +1,23 @@
 import { useEffect, useRef, useState } from 'react'
-import { createTask, listTasks, updateTask } from '../features/tasks/api/taskApi'
+import {
+  changeTaskStatus,
+  completeTask,
+  createTask,
+  listTasks,
+  reopenTask,
+  updateTask,
+} from '../features/tasks/api/taskApi'
 import { QuickAddTaskForm } from '../features/tasks/components/QuickAddTaskForm'
 import { TaskDetailsPanel } from '../features/tasks/components/TaskDetailsPanel'
 import { TaskList } from '../features/tasks/components/TaskList'
 import { TaskSummary } from '../features/tasks/components/TaskSummary'
-import type { CreateTaskInput, FieldErrors, Task, UpdateTaskInput } from '../features/tasks/model/taskTypes'
+import type {
+  ActiveTaskStatus,
+  CreateTaskInput,
+  FieldErrors,
+  Task,
+  UpdateTaskInput,
+} from '../features/tasks/model/taskTypes'
 import { TaskApiError } from '../features/tasks/model/taskTypes'
 import { FeedbackRegion } from '../shared/FeedbackRegion'
 import './App.css'
@@ -87,6 +100,33 @@ export function App() {
     }
   }
 
+  async function handleStatusCommand(
+    command: (taskId: string) => Promise<Task>,
+    successMessage: string,
+  ): Promise<void> {
+    if (!selectedTask) return
+    setSaving(true)
+    setFeedback(null)
+    try {
+      const updated = await command(selectedTask.id)
+      setActiveTasks((tasks) => placeTask(tasks, updated, 'active'))
+      setCompletedTasks((tasks) => placeTask(tasks, updated, 'completed'))
+      setSelectedTask(updated)
+      setFeedback({ kind: 'success', message: successMessage })
+    } catch (error) {
+      setFeedback({ kind: 'error', message: errorMessage(error) })
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  async function handleChangeStatus(status: ActiveTaskStatus): Promise<void> {
+    await handleStatusCommand(
+      (taskId) => changeTaskStatus(taskId, status),
+      'Estado da tarefa atualizado com sucesso.',
+    )
+  }
+
   function openDetails(task: Task, trigger: HTMLButtonElement) {
     detailsTriggerRef.current = trigger
     setEditFieldErrors({})
@@ -129,10 +169,21 @@ export function App() {
           fieldErrors={editFieldErrors}
           onSave={handleUpdate}
           onClose={closeDetails}
+          onChangeStatus={handleChangeStatus}
+          onComplete={() => handleStatusCommand(completeTask, 'Tarefa concluída com sucesso.')}
+          onReopen={() => handleStatusCommand(reopenTask, 'Tarefa reaberta com sucesso.')}
         />
       )}
     </main>
   )
+}
+
+function placeTask(tasks: Task[], updated: Task, view: 'active' | 'completed'): Task[] {
+  const withoutUpdated = tasks.filter((task) => task.id !== updated.id)
+  const belongsToView = view === 'completed'
+    ? updated.status === 'completed'
+    : updated.status !== 'completed'
+  return belongsToView ? [updated, ...withoutUpdated] : withoutUpdated
 }
 
 function errorMessage(error: unknown): string {

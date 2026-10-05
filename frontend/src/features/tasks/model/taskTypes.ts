@@ -2,6 +2,7 @@ import type { components } from '../api/schema'
 
 export type Task = components['schemas']['Task']
 export type TaskPriority = components['schemas']['TaskPriority']
+export type ActiveTaskStatus = components['schemas']['ActiveTaskStatus']
 export type UpdateTaskInput = components['schemas']['UpdateTaskRequest']
 
 export type CreateTaskInput = {

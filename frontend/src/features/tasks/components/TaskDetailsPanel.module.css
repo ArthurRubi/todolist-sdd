@@ -88,6 +88,50 @@
 
 .saveButton:disabled { cursor: wait; opacity: 0.7; }
 
+.statusActions {
+  display: grid;
+  gap: 0.85rem;
+  border-top: 1px solid var(--border);
+  padding: 1.2rem 0;
+}
+
+.statusActions h3 { margin: 0.2rem 0 0; font-size: 1rem; }
+.statusActions p { margin: 0; color: var(--ink-soft); font-size: 0.86rem; }
+.activeActions, .completedActions { display: grid; gap: 0.75rem; }
+.statusField { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.5rem; align-items: end; }
+.statusField label { grid-column: 1 / -1; color: var(--ink-soft); font-size: 0.82rem; font-weight: 750; }
+.statusField select {
+  width: 100%;
+  border: 1px solid var(--border-strong);
+  border-radius: 0.75rem;
+  background: white;
+  color: var(--ink);
+  font: inherit;
+  padding: 0.7rem 0.8rem;
+}
+
+.secondaryAction,
+.completeAction {
+  justify-self: start;
+  border-radius: 0.7rem;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 750;
+  padding: 0.65rem 0.8rem;
+}
+
+.secondaryAction { border: 1px solid var(--border-strong); background: white; color: var(--accent); }
+.completeAction { border: 0; background: #226b56; color: white; }
+.secondaryAction:disabled, .completeAction:disabled { cursor: wait; opacity: 0.62; }
+.actionHint { color: var(--muted) !important; font-size: 0.78rem !important; }
+.statusField select:focus-visible,
+.secondaryAction:focus-visible,
+.completeAction:focus-visible {
+  outline: 3px solid rgba(80, 70, 229, 0.22);
+  outline-offset: 2px;
+}
+
 .readOnly {
   display: grid;
   gap: 0.75rem;
@@ -105,4 +149,5 @@
   .header { flex-direction: column-reverse; }
   .closeButton { align-self: flex-end; }
   .fieldRow { grid-template-columns: 1fr; }
+  .statusField { grid-template-columns: 1fr; }
 }

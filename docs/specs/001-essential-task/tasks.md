@@ -8,6 +8,7 @@
 **Incremento T001–T024:** Accepted
 **Incremento T025–T032:** Accepted
 **Validação T025–T032:** Accepted
+**Incremento T033–T041:** Ready for review
 
 ## Formato
 
@@ -101,18 +102,18 @@
 
 ### Testes
 
-- [ ] T033 [P] [US-03] [AC-10] [AC-11] [AC-12] [AC-13] [AC-14] [FR-013] [FR-014] [FR-015] [FR-016] [FR-017] Escrever testes unitários inicialmente falhos da máquina de estados em `backend/tests/TodoList.Api.UnitTests/Features/Tasks/TaskStateTransitionsTests.cs`; depende de T032.
-- [ ] T034 [P] [US-03] [AC-10] [AC-11] [AC-12] [AC-13] [AC-14] [FR-013] [FR-014] [FR-015] [FR-016] [FR-017] [NFR-004] Escrever testes de integração inicialmente falhos para status ativo, conclusão repetida, reabertura, nova conclusão, histórico e rollback transacional em `backend/tests/TodoList.Api.IntegrationTests/Features/Tasks/TaskStatusTests.cs`; depende de T032.
-- [ ] T035 [P] [US-03] [AC-10] [AC-11] [AC-13] [FR-009] [FR-019] [NFR-002] [NFR-003] Escrever testes de componente inicialmente falhos dos controles de status, conclusão/reabertura, foco e movimentação entre listas em `frontend/src/features/tasks/components/TaskStatusActions.test.tsx`; depende de T032.
-- [ ] T036 [P] [US-03] [AC-10] [AC-11] [AC-12] [AC-13] [AC-14] [SC-004] [SC-006] Escrever E2E inicialmente falho de todo o ciclo de estado usando teclado em `frontend/e2e/us03-task-status.spec.ts`; depende de T032.
+- [x] T033 [P] [US-03] [AC-10] [AC-11] [AC-12] [AC-13] [AC-14] [FR-013] [FR-014] [FR-015] [FR-016] [FR-017] Escrever testes unitários inicialmente falhos da máquina de estados em `backend/tests/TodoList.Api.UnitTests/Features/Tasks/TaskStateTransitionsTests.cs`; depende de T032.
+- [x] T034 [P] [US-03] [AC-10] [AC-11] [AC-12] [AC-13] [AC-14] [FR-013] [FR-014] [FR-015] [FR-016] [FR-017] [NFR-004] Escrever testes de integração inicialmente falhos para status ativo, conclusão repetida, reabertura, nova conclusão, histórico e rollback transacional em `backend/tests/TodoList.Api.IntegrationTests/Features/Tasks/TaskStatusTests.cs`; depende de T032.
+- [x] T035 [P] [US-03] [AC-10] [AC-11] [AC-13] [FR-009] [FR-019] [NFR-002] [NFR-003] Escrever testes de componente inicialmente falhos dos controles de status, conclusão/reabertura, foco e movimentação entre listas em `frontend/src/features/tasks/components/TaskStatusActions.test.tsx`; depende de T032.
+- [x] T036 [P] [US-03] [AC-10] [AC-11] [AC-12] [AC-13] [AC-14] [SC-004] [SC-006] Escrever E2E inicialmente falho de todo o ciclo de estado usando teclado em `frontend/e2e/us03-task-status.spec.ts`; depende de T032.
 
 ### Implementação
 
-- [ ] T037 [US-03] [FR-013] [FR-014] [FR-015] [FR-016] [FR-017] Implementar transições e resolução do estado anterior em `backend/src/TodoList.Api/Features/Tasks/Status/TaskStateTransitions.cs`; depende de T033; testes unitários devem passar.
-- [ ] T038 [US-03] [FR-013] [FR-014] [FR-015] [FR-016] [FR-017] [NFR-004] Implementar `PUT /status`, `POST /complete` e `POST /reopen` com tarefa e evento na mesma transação em `backend/src/TodoList.Api/Features/Tasks/Status/TaskStatusEndpoints.cs`; depende de T034 e T037; todos os testes de integração da fase devem passar.
-- [ ] T039 [P] [US-03] [FR-013] [FR-014] [FR-016] [FR-019] Estender `frontend/src/features/tasks/api/taskApi.ts` com comandos tipados de status, conclusão e reabertura; depende de T035 e T020; testes MSW devem passar.
-- [ ] T040 [US-03] [FR-009] [FR-013] [FR-014] [FR-016] [FR-019] [NFR-002] [NFR-003] Implementar `TaskStatusActions.tsx` e integrar as ações ao painel/listas em `frontend/src/features/tasks/components/` e `frontend/src/app/App.tsx`; depende de T038 e T039; foco, texto de estado e feedback devem permanecer corretos.
-- [ ] T041 [US-03] [AC-10] [AC-11] [AC-12] [AC-13] [AC-14] Executar a suíte da US-03 e registrar evidências em `docs/specs/001-essential-task/tasks.md`; depende de T036, T038 e T040; AC-10 a AC-14 devem passar isoladamente.
+- [x] T037 [US-03] [FR-013] [FR-014] [FR-015] [FR-016] [FR-017] Implementar transições e resolução do estado anterior em `backend/src/TodoList.Api/Features/Tasks/Status/TaskStateTransitions.cs`; depende de T033; testes unitários devem passar.
+- [x] T038 [US-03] [FR-013] [FR-014] [FR-015] [FR-016] [FR-017] [NFR-004] Implementar `PUT /status`, `POST /complete` e `POST /reopen` com tarefa e evento na mesma transação em `backend/src/TodoList.Api/Features/Tasks/Status/TaskStatusEndpoints.cs`; depende de T034 e T037; todos os testes de integração da fase devem passar.
+- [x] T039 [P] [US-03] [FR-013] [FR-014] [FR-016] [FR-019] Estender `frontend/src/features/tasks/api/taskApi.ts` com comandos tipados de status, conclusão e reabertura; depende de T035 e T020; testes MSW devem passar.
+- [x] T040 [US-03] [FR-009] [FR-013] [FR-014] [FR-016] [FR-019] [NFR-002] [NFR-003] Implementar `TaskStatusActions.tsx` e integrar as ações ao painel/listas em `frontend/src/features/tasks/components/` e `frontend/src/app/App.tsx`; depende de T038 e T039; foco, texto de estado e feedback devem permanecer corretos.
+- [x] T041 [US-03] [AC-10] [AC-11] [AC-12] [AC-13] [AC-14] Executar a suíte da US-03 e registrar evidências em `docs/specs/001-essential-task/tasks.md`; depende de T036, T038 e T040; AC-10 a AC-14 devem passar isoladamente.
 
 **Checkpoint:** as três histórias estão funcionais; estado atual, conclusão atual e histórico correspondem a cada sequência executada.
 
@@ -219,6 +220,15 @@ Não marque tarefa incompleta, não substitua falha por descrição otimista e n
 - T030 — painel de detalhes implementado com formulário completo, datas/ID/estado somente leitura, campos preservados em erro e foco inicial/restaurado; testes de componente e E2E passaram.
 - T031 — abertura/fechamento, substituição da tarefa somente após sucesso e feedback acessível integrados ao `App`; suíte frontend passou sem regressão.
 - T032 — checkpoint US-02 executado: `dotnet test backend/TodoList.slnx --no-restore --disable-build-servers -m:1` (26/26), `npm run test:run --prefix frontend` (12/12), `npm run build --prefix frontend` e `npm run test:e2e --prefix frontend` (7/7); AC-06 a AC-09 demonstrados.
+- T033 — seis testes da máquina de estados escritos primeiro e inicialmente falhos por namespace inexistente; após T037, mudança ativa, no-op, conclusão idempotente, reabertura, nova conclusão e rejeições passaram.
+- T034 — seis testes HTTP/PostgreSQL escritos antes das rotas e inicialmente falhos com `404`; após T038, status ativo, conclusão repetida, restauração, histórico, conflitos e rollback forçado passaram.
+- T035 — três testes de componente escritos antes do controle e inicialmente falhos por módulo ausente; após T040, ações acessíveis e foco previsível passaram.
+- T036 — E2E escrito antes dos controles e inicialmente falho ao procurar `Estado ativo`; após T038–T040, o ciclo completo por teclado e a repetição idempotente passaram em Chromium.
+- T037 — máquina de estados pura implementada com resultados explícitos, eventos append-only e resolução da transição da conclusão atual; 13/13 testes unitários da solução passaram.
+- T038 — `PUT /status`, `POST /complete` e `POST /reopen` implementados com tarefa/evento na mesma transação; 6/6 testes dedicados e 25/25 testes de integração passaram.
+- T039 — cliente tipado implementado para estado ativo, conclusão e reabertura; 6/6 testes MSW do cliente passaram.
+- T040 — controles de estado integrados ao painel e às listas, com feedback textual, movimentação somente após sucesso e foco restaurado no controle substituto; 3/3 testes dedicados passaram.
+- T041 — checkpoint US-03 executado: backend 38/38, frontend 17/17, build Vite/TypeScript, tipos OpenAPI sem drift e E2E 8/8; AC-10 a AC-14 demonstrados.
 
 ## Aprovação do planejamento
 
@@ -244,6 +254,12 @@ Não marque tarefa incompleta, não substitua falha por descrição otimista e n
 **Aceito por:** Arthur Rubi
 **Data:** 2026-10-05
 
+### Aceite do incremento T033–T041
+
+**Decisão:** Pending
+**Aceito por:** pendente
+**Data:** pendente
+
 ## Registro de decisões
 
 - 2026-10-04: tarefas derivadas da SPEC-001 e do plano aprovados.
@@ -257,3 +273,4 @@ Não marque tarefa incompleta, não substitua falha por descrição otimista e n
 - 2026-10-05: incremento T025–T032 aceito pelo mantenedor; validação parcial da US-02 autorizada, mantendo a implementação total da SPEC-001 em andamento.
 - 2026-10-05: validação parcial de T025–T032 concluída com veredito `Passed with exceptions`; AC-06 a AC-09 passaram, e gates transversais posteriores permaneceram explicitamente pendentes.
 - 2026-10-05: validação parcial de T025–T032 aceita pelo mantenedor com as exceções registradas; implementação de T033–T041 autorizada.
+- 2026-10-05: T033–T041 concluídas com AC-10 a AC-14 demonstrados; incremento movido para `Ready for review`, mantendo a implementação total da SPEC-001 em andamento.

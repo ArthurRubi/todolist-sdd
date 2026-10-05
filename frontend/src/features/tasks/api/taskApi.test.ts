@@ -1,7 +1,14 @@
 import { HttpResponse, http } from 'msw'
 import { describe, expect, it } from 'vitest'
 import { server } from '../../../test/server'
-import { createTask, listTasks, updateTask } from './taskApi'
+import {
+  changeTaskStatus,
+  completeTask,
+  createTask,
+  listTasks,
+  reopenTask,
+  updateTask,
+} from './taskApi'
 
 const task = {
   id: '33333333-3333-4333-8333-333333333333',
@@ -100,6 +107,41 @@ describe('taskApi', () => {
       id: task.id,
       title: 'Cliente atualizado',
       priority: 'low',
+    })
+  })
+
+  it('envia uma alteração tipada de estado ativo', async () => {
+    server.use(
+      http.put(`*/api/tasks/${task.id}/status`, async ({ request }) => {
+        expect(await request.json()).toEqual({ status: 'in_progress' })
+        return HttpResponse.json({ ...task, status: 'in_progress' })
+      }),
+    )
+
+    await expect(changeTaskStatus(task.id, 'in_progress')).resolves.toMatchObject({
+      id: task.id,
+      status: 'in_progress',
+    })
+  })
+
+  it('conclui e reabre usando os comandos contratados', async () => {
+    server.use(
+      http.post(`*/api/tasks/${task.id}/complete`, () => HttpResponse.json({
+        ...task,
+        status: 'completed',
+        completedAt: '2026-10-05T13:00:00Z',
+      })),
+      http.post(`*/api/tasks/${task.id}/reopen`, () => HttpResponse.json({
+        ...task,
+        status: 'not_started',
+        completedAt: null,
+      })),
+    )
+
+    await expect(completeTask(task.id)).resolves.toMatchObject({ status: 'completed' })
+    await expect(reopenTask(task.id)).resolves.toMatchObject({
+      status: 'not_started',
+      completedAt: null,
     })
   })
 })

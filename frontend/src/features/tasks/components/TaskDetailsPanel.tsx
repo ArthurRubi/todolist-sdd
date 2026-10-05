@@ -1,7 +1,14 @@
 import { type FormEvent, useEffect, useRef, useState } from 'react'
 import { formatCalendarDate, formatInstant } from '../model/taskDates'
-import type { FieldErrors, Task, TaskPriority, UpdateTaskInput } from '../model/taskTypes'
+import type {
+  ActiveTaskStatus,
+  FieldErrors,
+  Task,
+  TaskPriority,
+  UpdateTaskInput,
+} from '../model/taskTypes'
 import styles from './TaskDetailsPanel.module.css'
+import { TaskStatusActions } from './TaskStatusActions'
 
 type Props = {
   task: Task
@@ -9,6 +16,9 @@ type Props = {
   fieldErrors: FieldErrors
   onSave: (input: UpdateTaskInput) => Promise<boolean>
   onClose: () => void
+  onChangeStatus?: (status: ActiveTaskStatus) => Promise<void>
+  onComplete?: () => Promise<void>
+  onReopen?: () => Promise<void>
 }
 
 const statusLabels: Record<Task['status'], string> = {
@@ -18,7 +28,16 @@ const statusLabels: Record<Task['status'], string> = {
   completed: 'Concluída',
 }
 
-export function TaskDetailsPanel({ task, saving, fieldErrors, onSave, onClose }: Props) {
+export function TaskDetailsPanel({
+  task,
+  saving,
+  fieldErrors,
+  onSave,
+  onClose,
+  onChangeStatus,
+  onComplete,
+  onReopen,
+}: Props) {
   const [form, setForm] = useState(() => formFromTask(task))
   const titleRef = useRef<HTMLInputElement>(null)
 
@@ -129,6 +148,16 @@ export function TaskDetailsPanel({ task, saving, fieldErrors, onSave, onClose }:
             {saving ? 'Salvando…' : 'Salvar alterações'}
           </button>
         </form>
+
+        {onChangeStatus && onComplete && onReopen && (
+          <TaskStatusActions
+            task={task}
+            busy={saving}
+            onChangeStatus={onChangeStatus}
+            onComplete={onComplete}
+            onReopen={onReopen}
+          />
+        )}
 
         <dl className={styles.readOnly} aria-label="Informações automáticas">
           <div><dt>Identificador</dt><dd>{task.id}</dd></div>
