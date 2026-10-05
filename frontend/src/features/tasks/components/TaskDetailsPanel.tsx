@@ -1,4 +1,4 @@
-import { type FormEvent, useEffect, useRef, useState } from 'react'
+import { type FormEvent, type KeyboardEvent, useEffect, useRef, useState } from 'react'
 import { formatCalendarDate, formatInstant } from '../model/taskDates'
 import type {
   ActiveTaskStatus,
@@ -40,6 +40,7 @@ export function TaskDetailsPanel({
 }: Props) {
   const [form, setForm] = useState(() => formFromTask(task))
   const titleRef = useRef<HTMLInputElement>(null)
+  const panelRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     setForm(formFromTask(task))
@@ -59,13 +60,37 @@ export function TaskDetailsPanel({
 
   const allErrors = Object.values(fieldErrors).flat()
 
+  function handleDialogKeyDown(event: KeyboardEvent<HTMLElement>) {
+    if (event.key === 'Escape') {
+      event.preventDefault()
+      onClose()
+      return
+    }
+
+    if (event.key !== 'Tab' || !panelRef.current) return
+    const focusable = Array.from(panelRef.current.querySelectorAll<HTMLElement>(
+      'button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    ))
+    const first = focusable[0]
+    const last = focusable.at(-1)
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault()
+      last?.focus()
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault()
+      first?.focus()
+    }
+  }
+
   return (
     <div className={styles.backdrop}>
       <section
+        ref={panelRef}
         className={styles.panel}
         role="dialog"
         aria-modal="true"
         aria-labelledby="task-details-title"
+        onKeyDown={handleDialogKeyDown}
       >
         <header className={styles.header}>
           <div>

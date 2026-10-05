@@ -4,12 +4,13 @@
 **Plano:** [Plano da SPEC-001](./plan.md)
 **Contrato:** [Tasks API](./contracts/tasks-api.openapi.yaml)
 **Planejamento:** Approved
-**Implementação:** In progress
+**Implementação:** Ready for review
 **Incremento T001–T024:** Accepted
 **Incremento T025–T032:** Accepted
 **Validação T025–T032:** Accepted
 **Incremento T033–T041:** Accepted
 **Validação T033–T041:** Accepted
+**Incremento T042–T054:** Ready for review
 
 ## Formato
 
@@ -122,22 +123,22 @@
 
 ### Testes e verificações primeiro
 
-- [ ] T042 [P] [NFR-004] [FR-019] Escrever testes inicialmente falhos de limite de corpo, origem CORS, `traceId`, health readiness sem banco e ausência de título/descrição nos logs em `backend/tests/TodoList.Api.IntegrationTests/Common/SecurityAndOperationsTests.cs`; depende de T041.
-- [ ] T043 [P] [NFR-002] [NFR-003] [SC-006] Acrescentar varredura axe e verificações de ordem de foco, foco visível, nomes acessíveis e indicadores não cromáticos em `frontend/e2e/accessibility.spec.ts`; depende de T041.
-- [ ] T044 [P] [NFR-001] [SC-005] Criar cenário reprodutível com 1.000 tarefas e medição de ao menos 100 operações de criar/editar/status em `frontend/e2e/performance.spec.ts` e `backend/tests/TodoList.Api.IntegrationTests/Performance/TaskPerformanceTests.cs`, registrando o percentil 95; depende de T041.
-- [ ] T045 [P] [ADR-0002] Escrever teste inicialmente falho que gera o OpenAPI da API e o compara semanticamente ao contrato aprovado em `backend/tests/TodoList.Api.IntegrationTests/Contract/OpenApiContractTests.cs`, além de verificar que `frontend/src/features/tasks/api/schema.ts` está regenerado; depende de T041.
+- [x] T042 [P] [NFR-004] [FR-019] Escrever testes inicialmente falhos de limite de corpo, origem CORS, `traceId`, health readiness sem banco e ausência de título/descrição nos logs em `backend/tests/TodoList.Api.IntegrationTests/Common/SecurityAndOperationsTests.cs`; depende de T041.
+- [x] T043 [P] [NFR-002] [NFR-003] [SC-006] Acrescentar varredura axe e verificações de ordem de foco, foco visível, nomes acessíveis e indicadores não cromáticos em `frontend/e2e/accessibility.spec.ts`; depende de T041.
+- [x] T044 [P] [NFR-001] [SC-005] Criar cenário reprodutível com 1.000 tarefas e medição de ao menos 100 operações de criar/editar/status em `frontend/e2e/performance.spec.ts` e `backend/tests/TodoList.Api.IntegrationTests/Performance/TaskPerformanceTests.cs`, registrando o percentil 95; depende de T041.
+- [x] T045 [P] [ADR-0002] Escrever teste inicialmente falho que gera o OpenAPI da API e o compara semanticamente ao contrato aprovado em `backend/tests/TodoList.Api.IntegrationTests/Contract/OpenApiContractTests.cs`, além de verificar que `frontend/src/features/tasks/api/schema.ts` está regenerado; depende de T041.
 
 ### Ajustes e automação
 
-- [ ] T046 [NFR-004] [FR-019] Implementar limites de requisição, política CORS estrita, correlação de erros, readiness e redação de logs em `backend/src/TodoList.Api/Common/` e `backend/src/TodoList.Api/Program.cs`; depende de T042; `SecurityAndOperationsTests` deve passar.
-- [ ] T047 [NFR-002] [NFR-003] [SC-006] Corrigir semântica, foco, mensagens e estilos acessíveis nos componentes e CSS de `frontend/src/features/tasks/` e `frontend/src/app/`; depende de T043; a varredura axe e as três jornadas por teclado devem passar.
-- [ ] T048 [NFR-001] [SC-005] Ajustar consultas/índices em `backend/src/TodoList.Api/Data/` e renderização/atualizações em `frontend/src/features/tasks/` somente conforme gargalos medidos; depende de T044; o percentil 95 registrado deve ser de até 1 segundo com 1.000 tarefas.
-- [ ] T049 [ADR-0002] Implementar normalização/comparação OpenAPI e verificação de tipos gerados em `backend/tests/TodoList.Api.IntegrationTests/Contract/`, `frontend/scripts/` e scripts dos manifests; depende de T045; qualquer drift deve falhar o comando de verificação.
-- [ ] T050 [SETUP] [ADR-0001] Criar `.github/workflows/ci.yml` para restore determinístico, análise/formatação, build, migração, testes backend/frontend, contrato e E2E aplicáveis, sem segredos reais; depende de T046, T047, T048 e T049; o workflow deve ser sintaticamente válido e reproduzir os comandos locais.
-- [ ] T051 [P] [FR-018] Atualizar `README.md`, `frontend/README.md` e `backend/README.md` com estrutura real, pré-requisitos, comandos, migrações, variáveis, testes e a restrição de não publicar a API sem proteção; depende de T041.
-- [ ] T052 [P] [SC-001] Criar protocolo de teste com pelo menos 10 participantes em `docs/specs/001-essential-task/usability-test-protocol.md`, definindo início, tarefa, cronômetro e registro sem orientação; depende de T041; não inventar resultados, deixando a coleta para a validação quando necessário.
-- [ ] T053 [FR-001] [FR-020] [NFR-001] [NFR-005] Executar restore, geração de contrato/tipos, análise estática, builds, migração do zero, suítes unitária/integração/componentes/E2E, acessibilidade e desempenho; depende de T050, T051 e T052; registrar comandos, versões, resultados e pendências reais em `docs/specs/001-essential-task/tasks.md`.
-- [ ] T054 [SPEC-001] Revisar cobertura de FR-001 a FR-020, NFR-001 a NFR-005, AC-01 a AC-14 e SC-001 a SC-006, atualizar checkboxes/evidências e mover apenas `Implementação` para `Ready for review` em `docs/specs/001-essential-task/tasks.md`; depende de T053; não criar `validation.md` nem presumir aceite humano.
+- [x] T046 [NFR-004] [FR-019] Implementar limites de requisição, política CORS estrita, correlação de erros, readiness e redação de logs em `backend/src/TodoList.Api/Common/` e `backend/src/TodoList.Api/Program.cs`; depende de T042; `SecurityAndOperationsTests` deve passar.
+- [x] T047 [NFR-002] [NFR-003] [SC-006] Corrigir semântica, foco, mensagens e estilos acessíveis nos componentes e CSS de `frontend/src/features/tasks/` e `frontend/src/app/`; depende de T043; a varredura axe e as três jornadas por teclado devem passar.
+- [x] T048 [NFR-001] [SC-005] Ajustar consultas/índices em `backend/src/TodoList.Api/Data/` e renderização/atualizações em `frontend/src/features/tasks/` somente conforme gargalos medidos; depende de T044; o percentil 95 registrado deve ser de até 1 segundo com 1.000 tarefas.
+- [x] T049 [ADR-0002] Implementar normalização/comparação OpenAPI e verificação de tipos gerados em `backend/tests/TodoList.Api.IntegrationTests/Contract/`, `frontend/scripts/` e scripts dos manifests; depende de T045; qualquer drift deve falhar o comando de verificação.
+- [x] T050 [SETUP] [ADR-0001] Criar `.github/workflows/ci.yml` para restore determinístico, análise/formatação, build, migração, testes backend/frontend, contrato e E2E aplicáveis, sem segredos reais; depende de T046, T047, T048 e T049; o workflow deve ser sintaticamente válido e reproduzir os comandos locais.
+- [x] T051 [P] [FR-018] Atualizar `README.md`, `frontend/README.md` e `backend/README.md` com estrutura real, pré-requisitos, comandos, migrações, variáveis, testes e a restrição de não publicar a API sem proteção; depende de T041.
+- [x] T052 [P] [SC-001] Criar protocolo de teste com pelo menos 10 participantes em `docs/specs/001-essential-task/usability-test-protocol.md`, definindo início, tarefa, cronômetro e registro sem orientação; depende de T041; não inventar resultados, deixando a coleta para a validação quando necessário.
+- [x] T053 [FR-001] [FR-020] [NFR-001] [NFR-005] Executar restore, geração de contrato/tipos, análise estática, builds, migração do zero, suítes unitária/integração/componentes/E2E, acessibilidade e desempenho; depende de T050, T051 e T052; registrar comandos, versões, resultados e pendências reais em `docs/specs/001-essential-task/tasks.md`.
+- [x] T054 [SPEC-001] Revisar cobertura de FR-001 a FR-020, NFR-001 a NFR-005, AC-01 a AC-14 e SC-001 a SC-006, atualizar checkboxes/evidências e mover apenas `Implementação` para `Ready for review` em `docs/specs/001-essential-task/tasks.md`; depende de T053; não criar `validation.md` nem presumir aceite humano.
 
 **Checkpoint:** implementação completa, documentada e pronta para revisão humana; a validação formal continua bloqueada até o aceite da implementação.
 
@@ -178,6 +179,14 @@ Fase 1 (setup)
 | SC-001 | T052 | coleta humana na etapa de validação; exceção explícita se indisponível |
 
 Nenhum requisito ou cenário está órfão. SC-001 depende legitimamente de participantes humanos e não bloqueia a implementação técnica, mas impede um veredito `Passed` sem evidência ou exceção declarada na validação.
+
+### Resultado da auditoria T054
+
+- **FR-001–FR-020:** cobertura de implementação e teste localizada nas três histórias e nos gates transversais; nenhuma lacuna encontrada.
+- **NFR-001–NFR-005:** rapidez, teclado/comunicação, integridade e localização possuem evidência automatizada; p95 final de interface foi `290,17 ms` e as duas localidades/fusos passaram.
+- **AC-01–AC-14:** todos os cenários permanecem cobertos pelas suítes unitária, integração, componente e E2E.
+- **SC-002–SC-006:** evidência técnica passou; axe encontrou zero violações nas superfícies verificadas e as três jornadas foram concluídas por teclado.
+- **SC-001:** protocolo para 10 participantes está pronto, mas nenhuma coleta foi inventada; o critério permanece para a validação humana, com exceção explícita se a amostra ainda estiver indisponível.
 
 ## Registro de execução
 
@@ -230,6 +239,19 @@ Não marque tarefa incompleta, não substitua falha por descrição otimista e n
 - T039 — cliente tipado implementado para estado ativo, conclusão e reabertura; 6/6 testes MSW do cliente passaram.
 - T040 — controles de estado integrados ao painel e às listas, com feedback textual, movimentação somente após sucesso e foco restaurado no controle substituto; 3/3 testes dedicados passaram.
 - T041 — checkpoint US-03 executado: backend 38/38, frontend 17/17, build Vite/TypeScript, tipos OpenAPI sem drift e E2E 8/8; AC-10 a AC-14 demonstrados.
+- T042 — cinco testes operacionais escritos antes dos ajustes; limite de corpo e log seguro falharam inicialmente, enquanto CORS negativo, `traceId` e readiness degradada já demonstravam o comportamento-base.
+- T043 — suíte Playwright transversal criada com axe, ordem/foco visível, trap/Escape, nomes acessíveis, indicadores textuais e as três jornadas por teclado; a primeira execução falhou somente no contraste de `--muted`.
+- T044 — cenários backend e browser criados com carga reprodutível até 1.000 tarefas e 100 operações de criar/editar/status; medição final backend p95 `5,18 ms` e interface p95 `290,17 ms`.
+- T045 — teste inicialmente falhou por comparador ausente e depois revelou respostas `500`, corpos obrigatórios e parâmetro idempotente ausentes no OpenAPI runtime; verificação de tipos também nasceu como comando obrigatório.
+- T046 — limite de 64 KiB, origem CORS absoluta sem curinga, `traceId`, live/ready separados e log operacional sem conteúdo de tarefa implementados; `SecurityAndOperationsTests` 5/5.
+- T047 — contraste de texto secundário e contenção/restauração de foco do diálogo corrigidos; `accessibility.spec.ts` 5/5, zero violações axe e jornadas integralmente navegáveis por teclado.
+- T048 — nenhuma otimização foi aplicada: as medições de T044 ficaram abaixo de 1 segundo sem gargalo, evitando mudança especulativa de consulta, índice ou renderização.
+- T049 — comparação semântica verifica rotas, métodos, IDs, parâmetros, corpos, respostas e shapes essenciais; `check:api` gera em arquivo temporário e falha em drift; testes de contrato 2/2.
+- T050 — workflow CI criado com restore bloqueado, tipos, format, builds, migração limpa, 46 testes backend, 19 frontend e 14 E2E; `YAML.load_file` confirmou sintaxe válida e não há segredo real.
+- T051 — READMEs raiz/backend/frontend atualizados com estrutura, pré-requisitos, execução, migrações, variáveis, testes, contrato e bloqueio de publicação aberta da API.
+- T052 — protocolo de usabilidade criado para no mínimo 10 participantes, com instrução padronizada, cronômetro, critérios e tabela vazia; coleta permanece honestamente `Not started`.
+- T053 — `dotnet tool restore`, `dotnet restore --locked-mode`, `npm ci`, `check:api`, `dotnet format --verify-no-changes`, builds sem avisos, migração em banco temporário do zero, backend 46/46, frontend 19/19 e E2E 14/14 passaram; p95 de interface `290,17 ms`, axe sem violações e teste de localidade/fuso 2/2.
+- T054 — FR-001–FR-020, NFR-001–NFR-005, AC-01–AC-14 e SC-001–SC-006 auditados sem órfãos; somente a implementação foi movida para `Ready for review`, mantendo aceite humano e validação integral pendentes.
 
 ## Aprovação do planejamento
 
@@ -278,3 +300,4 @@ Não marque tarefa incompleta, não substitua falha por descrição otimista e n
 - 2026-10-05: incremento T033–T041 aceito pelo mantenedor; validação parcial da US-03 autorizada, mantendo a implementação total da SPEC-001 em andamento.
 - 2026-10-05: validação parcial de T033–T041 concluída com veredito `Passed with exceptions`; AC-10 a AC-14 passaram, e os gates T042–T054 permaneceram explicitamente pendentes.
 - 2026-10-05: validação parcial de T033–T041 aceita pelo mantenedor com as exceções registradas; implementação de T042–T054 autorizada.
+- 2026-10-05: T042–T054 concluídas, exceções técnicas anteriores resolvidas e implementação integral movida para `Ready for review`; validação formal permanece bloqueada até aceite humano.

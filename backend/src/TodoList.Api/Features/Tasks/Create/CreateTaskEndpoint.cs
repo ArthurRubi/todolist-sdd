@@ -14,7 +14,25 @@ public static class CreateTaskEndpoint
         .Produces<TaskResponse>(StatusCodes.Status201Created)
         .Produces<TaskResponse>(StatusCodes.Status200OK)
         .ProducesValidationProblem()
-        .ProducesProblem(StatusCodes.Status409Conflict);
+        .ProducesProblem(StatusCodes.Status409Conflict)
+        .ProducesProblem(StatusCodes.Status500InternalServerError)
+        .AddOpenApiOperationTransformer((operation, _, _) =>
+        {
+            operation.Parameters ??= [];
+            operation.Parameters.Add(new Microsoft.OpenApi.OpenApiParameter
+            {
+                Name = "Idempotency-Key",
+                In = Microsoft.OpenApi.ParameterLocation.Header,
+                Required = true,
+                Description = "UUID estável para uma tentativa lógica de criação.",
+                Schema = new Microsoft.OpenApi.OpenApiSchema
+                {
+                    Type = Microsoft.OpenApi.JsonSchemaType.String,
+                    Format = "uuid",
+                },
+            });
+            return Task.CompletedTask;
+        });
 
     private static async Task<IResult> HandleAsync(
         [FromBody] CreateTaskRequest request,

@@ -14,20 +14,23 @@ public static class TaskStatusEndpoints
             .Produces<TaskResponse>()
             .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status404NotFound)
-            .ProducesProblem(StatusCodes.Status409Conflict);
+            .ProducesProblem(StatusCodes.Status409Conflict)
+            .ProducesProblem(StatusCodes.Status500InternalServerError);
 
         group.MapPost("/{taskId:guid}/complete", CompleteAsync)
             .WithName("completeTask")
             .WithSummary("Conclui uma tarefa de forma idempotente")
             .Produces<TaskResponse>()
-            .ProducesProblem(StatusCodes.Status404NotFound);
+            .ProducesProblem(StatusCodes.Status404NotFound)
+            .ProducesProblem(StatusCodes.Status500InternalServerError);
 
         group.MapPost("/{taskId:guid}/reopen", ReopenAsync)
             .WithName("reopenTask")
             .WithSummary("Reabre uma tarefa no estado ativo anterior")
             .Produces<TaskResponse>()
             .ProducesProblem(StatusCodes.Status404NotFound)
-            .ProducesProblem(StatusCodes.Status409Conflict);
+            .ProducesProblem(StatusCodes.Status409Conflict)
+            .ProducesProblem(StatusCodes.Status500InternalServerError);
 
         return group;
     }

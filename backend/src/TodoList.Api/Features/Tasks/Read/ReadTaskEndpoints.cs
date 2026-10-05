@@ -11,13 +11,15 @@ public static class ReadTaskEndpoints
             .WithName("listTasks")
             .WithSummary("Lista tarefas ativas ou concluídas")
             .Produces<List<TaskResponse>>()
-            .ProducesValidationProblem();
+            .ProducesValidationProblem()
+            .ProducesProblem(StatusCodes.Status500InternalServerError);
 
         group.MapGet("/{taskId:guid}", GetAsync)
             .WithName("getTask")
             .WithSummary("Obtém os detalhes essenciais de uma tarefa")
             .Produces<TaskResponse>()
-            .ProducesProblem(StatusCodes.Status404NotFound);
+            .ProducesProblem(StatusCodes.Status404NotFound)
+            .ProducesProblem(StatusCodes.Status500InternalServerError);
 
         return group;
     }

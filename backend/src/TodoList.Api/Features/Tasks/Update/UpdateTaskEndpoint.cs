@@ -13,7 +13,8 @@ public static class UpdateTaskEndpoint
         .WithSummary("Substitui atomicamente os campos editáveis")
         .Produces<TaskResponse>()
         .ProducesValidationProblem()
-        .ProducesProblem(StatusCodes.Status404NotFound);
+        .ProducesProblem(StatusCodes.Status404NotFound)
+        .ProducesProblem(StatusCodes.Status500InternalServerError);
 
     private static async Task<IResult> HandleAsync(
         Guid taskId,

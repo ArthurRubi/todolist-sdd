@@ -11,6 +11,14 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("TodoList")
     ?? "Host=localhost;Port=5432;Database=todolist;Username=todolist;Password=todolist-local";
 var allowedOrigin = builder.Configuration["Cors:AllowedOrigin"] ?? "http://localhost:5173";
+if (!Uri.TryCreate(allowedOrigin, UriKind.Absolute, out var allowedOriginUri)
+    || allowedOriginUri.Scheme is not ("http" or "https")
+    || allowedOrigin.Contains('*', StringComparison.Ordinal))
+{
+    throw new InvalidOperationException("Cors:AllowedOrigin deve ser uma origem HTTP(S) absoluta, sem curingas.");
+}
+
+builder.WebHost.ConfigureKestrel(options => options.Limits.MaxRequestBodySize = RequestBodyLimitMiddleware.MaximumBodySize);
 
 builder.Services.AddDbContext<TodoListDbContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddProblemDetails(options =>
@@ -21,7 +29,22 @@ builder.Services.AddProblemDetails(options =>
             ?? context.HttpContext.TraceIdentifier;
     };
 });
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApi(options =>
+{
+    options.AddOperationTransformer((operation, _, _) =>
+    {
+        if (operation.RequestBody is not null)
+        {
+            operation.RequestBody = new Microsoft.OpenApi.OpenApiRequestBody
+            {
+                Content = operation.RequestBody.Content,
+                Required = true,
+            };
+        }
+
+        return Task.CompletedTask;
+    });
+});
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("Frontend", policy =>
@@ -33,6 +56,8 @@ builder.Services.AddHealthChecks()
 var app = builder.Build();
 
 app.UseExceptionHandler();
+app.UseMiddleware<RequestBodyLimitMiddleware>();
+app.UseMiddleware<SafeRequestLoggingMiddleware>();
 app.UseStatusCodePages(async statusCodeContext =>
 {
     var problemDetailsService = statusCodeContext.HttpContext.RequestServices

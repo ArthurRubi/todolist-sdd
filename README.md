@@ -1,62 +1,77 @@
 # TodoList SDD
 
-Aplicação web de tarefas inspirada no Microsoft To Do, criada como projeto de estudo de **Spec-Driven Development (SDD)**.
+Aplicação web de tarefas inspirada no Microsoft To Do e construída como estudo prático de **Spec-Driven Development (SDD)**. A primeira fatia permite criar, consultar, editar, concluir, reabrir e acompanhar o estado de tarefas com persistência em PostgreSQL.
 
-> Estado atual: fundação documental e operacional. Ainda não há código de produto; a primeira funcionalidade nascerá de uma especificação aprovada.
-
-## Fluxo de desenvolvimento
+## Fluxo SDD
 
 ```text
 Ideia → Especificação → Plano técnico → Tarefas e testes → Implementação → Validação
 ```
 
-Cada etapa produz um artefato versionado e rastreável. As regras completas estão em [docs/sdd-workflow.md](docs/sdd-workflow.md), e os princípios obrigatórios estão em [docs/constitution.md](docs/constitution.md).
+A documentação aprovada é a fonte de verdade. Consulte [docs/sdd-workflow.md](docs/sdd-workflow.md), [docs/constitution.md](docs/constitution.md) e a [SPEC-001](docs/specs/001-essential-task/spec.md) antes de alterar comportamento.
 
-## Estrutura do monorepo
+## Estrutura
 
 ```text
 .
-├── .codex/skills/       # Fluxos SDD reutilizáveis pelo Codex
-├── .github/              # Convenções de contribuição no GitHub
-├── backend/              # API ASP.NET Core (.NET 10)
-├── docs/                 # Constituição, decisões, specs e templates
-├── frontend/             # Aplicação React
-├── AGENTS.md             # Instruções permanentes para agentes
-└── README.md
+├── .codex/skills/       # workflows SDD reutilizáveis
+├── .github/workflows/   # CI reproduzível
+├── backend/              # API ASP.NET Core 10 e testes xUnit
+├── docs/                 # especificações, decisões e rastreabilidade
+├── frontend/             # SPA React 19 e testes Vitest/Playwright
+├── compose.yaml          # PostgreSQL 18 para desenvolvimento/E2E
+└── AGENTS.md             # regras permanentes para agentes
 ```
 
-Consulte o README do módulo antes de alterá-lo:
+Detalhes operacionais ficam nos READMEs de [frontend](frontend/README.md) e [backend](backend/README.md).
 
-- [Documentação](docs/README.md)
-- [Frontend](frontend/README.md)
-- [Backend](backend/README.md)
+## Pré-requisitos
 
-## Stack planejada
+- .NET SDK `10.0.300` (fixado em `global.json`);
+- Node.js `20.20.2` e npm `10.8.2`;
+- Docker com Compose;
+- navegador Chromium instalado pelo Playwright para E2E.
 
-- Frontend: React com TypeScript, inicialmente via Vite.
-- Backend: ASP.NET Core Web API sobre .NET 10.
-- Persistência: PostgreSQL com Entity Framework Core.
-- Contrato: OpenAPI, tratado como fronteira explícita entre frontend e backend.
-- Testes: Vitest/Testing Library, xUnit e testes de integração; E2E será definido no plano da funcionalidade.
+## Início rápido
 
-Essas escolhas são uma linha de base, não uma autorização para gerar código. Mudanças relevantes exigem decisão arquitetural registrada.
+```bash
+cp .env.example .env
+docker-compose -f compose.yaml up -d --wait
+dotnet tool restore
+dotnet restore backend/TodoList.slnx --locked-mode
+npm ci --prefix frontend
+dotnet ef database update --project backend/src/TodoList.Api/TodoList.Api.csproj
+dotnet run --project backend/src/TodoList.Api/TodoList.Api.csproj --urls http://localhost:5080
+```
 
-## Como trabalhar com o Codex
+Em outro terminal:
 
-As skills locais podem ser chamadas diretamente:
+```bash
+npm run dev --prefix frontend
+```
 
-- `$sdd-idea` — transforma uma conversa em proposta de ideia.
-- `$sdd-specify` — cria a especificação funcional.
-- `$sdd-plan` — cria o plano técnico a partir da spec aprovada.
-- `$sdd-tasks` — deriva tarefas e testes rastreáveis.
-- `$sdd-implement` — implementa apenas tarefas prontas.
-- `$sdd-validate` — valida a entrega contra a spec e registra evidências.
+Abra `http://localhost:5173`. Use `docker compose` no lugar de `docker-compose` quando sua instalação oferecer apenas o plugin moderno.
 
-Exemplo: `Use $sdd-specify para especificar a criação de uma tarefa.`
+## Verificação
 
-## Ambiente local conhecido
+```bash
+npm run check:api --prefix frontend
+dotnet format backend/TodoList.slnx --verify-no-changes --no-restore
+dotnet test backend/TodoList.slnx --no-restore --disable-build-servers -m:1
+npm run test:run --prefix frontend
+npm run build --prefix frontend
+npm run test:e2e --prefix frontend
+```
 
-- .NET SDK: `10.0.300`
-- npm: `10.8.2`
+> A API não possui autenticação nesta spec. Não a publique em acesso aberto sem uma proteção externa ou uma futura especificação de autenticação.
 
-A versão do Node.js e as dependências serão fixadas quando o primeiro plano técnico justificar o scaffold.
+## Skills SDD
+
+- `$sdd-idea` — estrutura a necessidade;
+- `$sdd-specify` — cria a especificação funcional;
+- `$sdd-plan` — define o plano técnico;
+- `$sdd-tasks` — deriva tarefas e testes;
+- `$sdd-implement` — executa somente tarefas aprovadas;
+- `$sdd-validate` — valida a entrega com evidências.
+
+Cada etapa termina em `Ready for review` e exige aprovação humana explícita antes da próxima.

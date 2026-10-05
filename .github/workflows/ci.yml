@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      ConnectionStrings__TodoList: Host=127.0.0.1;Port=5432;Database=todolist;Username=todolist;Password=todolist-local
+      Cors__AllowedOrigin: http://127.0.0.1:5173
+      VITE_API_URL: http://127.0.0.1:5080/api
+      POSTGRES_DB: todolist
+      POSTGRES_USER: todolist
+      POSTGRES_PASSWORD: todolist-local
+      POSTGRES_PORT: 5432
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.300
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.20.2
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Restore deterministic dependencies
+        run: |
+          dotnet tool restore
+          dotnet restore backend/TodoList.slnx --locked-mode
+          npm ci --prefix frontend
+          npx --prefix frontend playwright install --with-deps chromium
+
+      - name: Verify generated API types
+        run: npm run check:api --prefix frontend
+
+      - name: Static analysis and builds
+        run: |
+          dotnet format backend/TodoList.slnx --verify-no-changes --no-restore
+          dotnet build backend/TodoList.slnx --no-restore --disable-build-servers -m:1
+          npm run build --prefix frontend
+
+      - name: Start PostgreSQL and apply migration from zero
+        run: |
+          docker compose -f compose.yaml up -d --wait
+          dotnet ef database update --no-build --project backend/src/TodoList.Api/TodoList.Api.csproj
+
+      - name: Backend tests and runtime contract
+        run: dotnet test backend/TodoList.slnx --no-build --no-restore --disable-build-servers -m:1
+
+      - name: Frontend component tests
+        run: npm run test:run --prefix frontend
+
+      - name: E2E, accessibility and performance
+        run: npm run test:e2e --prefix frontend
+
+      - name: Stop local infrastructure
+        if: always()
+        run: docker compose -f compose.yaml down -v

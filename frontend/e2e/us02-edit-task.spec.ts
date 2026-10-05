@@ -103,8 +103,10 @@ function seedCompletedTask(title: string) {
     INSERT INTO task_status_events (id, task_id, from_status, to_status, occurred_at)
     VALUES ('${eventId}', '${id}', 'not_started', 'completed', '2026-10-04T18:45:00Z');
   `
-  execFileSync('docker-compose', [
-    '-f', '../compose.yaml', 'exec', '-T', 'postgres',
+  const executable = process.env.CI ? 'docker' : 'docker-compose'
+  const composePrefix = process.env.CI ? ['compose'] : []
+  execFileSync(executable, [
+    ...composePrefix, '-f', '../compose.yaml', 'exec', '-T', 'postgres',
     'psql', '-U', 'todolist', '-d', 'todolist', '-v', 'ON_ERROR_STOP=1', '-c', sql,
   ])
   return id
