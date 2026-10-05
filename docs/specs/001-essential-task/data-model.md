@@ -1,7 +1,7 @@
 # Modelo de dados: SPEC-001 — Tarefa essencial
 
 **Data:** 2026-10-04
-**Status:** Ready for review
+**Status:** Approved
 
 ## Visão geral
 
@@ -17,7 +17,7 @@ tasks 1 ──── 0..N task_status_events
 |---|---|---:|---|
 | `id` | `uuid` | não | chave primária, gerada pela aplicação |
 | `creation_idempotency_key` | `uuid` | não | única; identifica uma tentativa lógica de criação |
-| `title` | `varchar(200)` | não | 1–200 caracteres apó remover espaços externos |
+| `title` | `varchar(200)` | não | 1–200 caracteres após remover espaços externos |
 | `description` | `varchar(10000)` | sim | texto simples; string vazia é normalizada para `null` |
 | `status` | `varchar(20)` | não | `not_started`, `in_progress`, `blocked` ou `completed` |
 | `priority` | `varchar(10)` | não | `none`, `low`, `medium`, `high` ou `urgent` |
@@ -55,7 +55,7 @@ tasks 1 ──── 0..N task_status_events
 
 - `from_status` e `to_status` aceitam somente os quatro estados da spec.
 - `CHECK (from_status <> to_status)` evita eventos sem mudança real.
-- índice em `(task_id, occurred_at DESC, id DESC)` permite recuperar determinísticamente a transição mais recente.
+- índice em `(task_id, occurred_at DESC, id DESC)` permite recuperar deterministicamente a transição mais recente.
 - eventos são append-only pela aplicação.
 
 ## Invariantes de domínio
@@ -73,7 +73,7 @@ tasks 1 ──── 0..N task_status_events
 
 - A API serializa `due_date` como `YYYY-MM-DD`, sem conversão de fuso.
 - Instantes são serializados em UTC com sufixo `Z`; o frontend os formata na localidade do navegador.
-- `isOverdue` não é persistido: o frontend deriva `status != completed && due_date < data local atual`, evitando dado obsoleto apó a meia-noite.
+- `isOverdue` não é persistido: o frontend deriva `status != completed && due_date < data local atual`, evitando dado obsoleto após a meia-noite.
 
 ## Migração inicial
 

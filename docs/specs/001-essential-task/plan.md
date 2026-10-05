@@ -5,7 +5,7 @@
 **Decisões:** [ADR-0001](../../architecture/decisions/0001-monorepo-and-platform-baseline.md), [ADR-0002](../../architecture/decisions/0002-modular-vertical-slices-and-versioned-http-contract.md)
 **Branch:** `codex/001-essential-task`
 **Data:** 2026-10-04
-**Status:** Ready for review
+**Status:** Approved
 
 ## Resumo
 
@@ -33,7 +33,7 @@ A implementação será um monólito modular pequeno, organizado por funcionalid
 | Entrega vertical | PASS | A ordem proposta entrega primeiro US-01 e depois US-02/US-03, sempre atravessando banco, API e interface. |
 | Simplicidade | PASS | Uma SPA, uma API e um banco; sem mensageria, microserviços, Redux, autenticação ou abstrações genéricas sem necessidade. |
 
-### Verificação apó o desenho
+### Verificação após o desenho
 
 O desenho final permanece compatível com a Constituição. O mecanismo adicional de idempotência existe para atender explicitamente ao caso de resposta incerta e ao NFR-004; o histórico separado existe para atender FR-017 e reabertura. As demais escolhas reduzem complexidade ou tornam os gates verificáveis.
 
@@ -48,7 +48,7 @@ Decisões centrais:
 - manter uma única aplicação backend organizada por fatias verticais, com testes em projetos separados;
 - usar o PostgreSQL real nos testes de integração, evitando comportamento divergente de banco em memória;
 - armazenar cada mudança de estado como evento imutável e atualizar a tarefa na mesma transação;
-- tornar criações repetíveis com `Idempotency-Key`, evitando duplicatas apó respostas incertas;
+- tornar criações repetíveis com `Idempotency-Key`, evitando duplicatas após respostas incertas;
 - gerar os tipos do cliente a partir do contrato, sem manter DTOs TypeScript duplicados manualmente.
 
 ## Arquitetura e fluxo
@@ -205,9 +205,9 @@ Não é necessário feature flag: não existe versão anterior nem consumidor ex
 
 ## Aprovação
 
-**Decisão:** Pendente
-**Aprovado por:** pendente
-**Data:** pendente
+**Decisão:** Approved
+**Aprovado por:** Arthur Rubi
+**Data:** 2026-10-04
 
 ## Registro de decisões
 
@@ -215,3 +215,4 @@ Não é necessário feature flag: não existe versão anterior nem consumidor ex
 - 2026-10-04: pesquisa, modelo de dados, contrato OpenAPI e ADR-0002 adicionados.
 - 2026-10-04: Constitution Check executado antes e depois do desenho, sem desvios.
 - 2026-10-04: plano movido para `Ready for review`; nenhuma tarefa ou implementação foi iniciada.
+- 2026-10-04: plano aprovado pelo mantenedor sem alterações; estado alterado para `Approved`.

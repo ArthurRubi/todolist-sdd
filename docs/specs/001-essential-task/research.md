@@ -1,7 +1,7 @@
 # Pesquisa técnica: SPEC-001 — Tarefa essencial
 
 **Data:** 2026-10-04
-**Status:** Concluída para revisão do plano
+**Status:** Concluída e aprovada com o plano
 
 ## Objetivo
 

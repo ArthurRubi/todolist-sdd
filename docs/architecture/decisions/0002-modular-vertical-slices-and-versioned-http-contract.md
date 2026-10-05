@@ -1,6 +1,6 @@
 # ADR-0002: Organizar o monólito por fatias verticais e versionar o contrato HTTP
 
-**Status:** Proposed
+**Status:** Accepted
 **Data:** 2026-10-04
 **Relacionada a:** SPEC-001
 
