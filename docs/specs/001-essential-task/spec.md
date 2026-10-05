@@ -4,7 +4,7 @@
 **Ideia de origem:** [IDEA-002](../../ideas/002-customizable-task-model.md)
 **Branch sugerida:** `codex/001-essential-task`
 **Criada em:** 2026-10-02
-**Status:** Ready for review
+**Status:** Approved
 **Input:** Criar a primeira especificação da IDEA-002, começando pelo incremento de tarefa essencial.
 
 ## Problema e resultado
@@ -163,9 +163,10 @@ Depois desta funcionalidade, o usuário poderá criar uma tarefa apenas com um t
 - 2026-10-02: prazo definido como data sem horário; horários e fusos serão tratados no incremento de planejamento.
 - 2026-10-02: definidos quatro estados e cinco prioridades fixos como base inicial.
 - 2026-10-02: spec revisada quanto a cobertura e movida para `Ready for review`.
+- 2026-10-04: spec aprovada pelo mantenedor sem alterações; estado alterado para `Approved`.
 
 ## Aprovação
 
-**Decisão:** Pending
-**Aprovada por:** pendente
-**Data:** pendente
+**Decisão:** Approved
+**Aprovada por:** Arthur Rubi
+**Data:** 2026-10-04
