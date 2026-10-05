@@ -6,7 +6,7 @@
 **Planejamento:** Approved
 **Implementação:** In progress
 **Incremento T001–T024:** Accepted
-**Incremento T025–T032:** Ready for review
+**Incremento T025–T032:** Accepted
 
 ## Formato
 
@@ -239,9 +239,9 @@ Não marque tarefa incompleta, não substitua falha por descrição otimista e n
 
 ### Aceite do incremento T025–T032
 
-**Decisão:** Pending
-**Aceito por:** pendente
-**Data:** pendente
+**Decisão:** Accepted
+**Aceito por:** Arthur Rubi
+**Data:** 2026-10-05
 
 ## Registro de decisões
 
@@ -253,3 +253,4 @@ Não marque tarefa incompleta, não substitua falha por descrição otimista e n
 - 2026-10-04: T001–T024 concluídas com AC-01 a AC-05 demonstrados; incremento movido para `Ready for review`, mantendo a implementação total da SPEC-001 em andamento.
 - 2026-10-05: incremento T001–T024 aceito pelo mantenedor; implementação de T025–T032 autorizada e iniciada.
 - 2026-10-05: T025–T032 concluídas com AC-06 a AC-09 demonstrados; incremento movido para `Ready for review`, mantendo a implementação total da SPEC-001 em andamento.
+- 2026-10-05: incremento T025–T032 aceito pelo mantenedor; validação parcial da US-02 autorizada, mantendo a implementação total da SPEC-001 em andamento.
